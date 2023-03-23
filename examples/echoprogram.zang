@@ -1,0 +1,5 @@
+| Little echo program, not too hard
+while True then
+    let echo = read()
+    writeln(col_red+echo)
+end
