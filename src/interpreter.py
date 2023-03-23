@@ -182,7 +182,7 @@ class Lexer:
     while self.current_char != None:
       if self.current_char in ' \t':
         self.advance()
-      elif self.current_char == '//':
+      elif self.current_char == '|':
         self.skip_comment()
       elif self.current_char in ';\n':
         tokens.append(Token(TT_NEWLINE, pos_start=self.pos))
@@ -1491,6 +1491,11 @@ Number.null = Number(0)
 Number.false = Number(0)
 Number.true = Number(1)
 Number.math_PI = Number(math.pi)
+Number.math_inf = Number(math.inf)
+
+
+import random
+Number.random = Number(random.random())
 
 class String(Value):
   def __init__(self, value):
@@ -1856,6 +1861,13 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_run.arg_names = ["fn"]
 
+String.col_red = String("\u001b[31m")
+String.col_reset = String("\u001b[0m")
+String.col_blue = String("\u001b[34m")
+String.col_purple = String("\u001b[35m")
+String.col_green = String("\u001b[32m")
+String.col_yellow = String("\u001b[33m")
+
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
@@ -2164,9 +2176,18 @@ class Interpreter:
 
 global_symbol_table = SymbolTable()
 global_symbol_table.set("nil", Number.null)
+global_symbol_table.set("random", Number.random)
 global_symbol_table.set("False", Number.false)
 global_symbol_table.set("True", Number.true)
 global_symbol_table.set("math_pi", Number.math_PI)
+global_symbol_table.set("col_red", String.col_red)
+global_symbol_table.set("col_purple", String.col_purple)
+global_symbol_table.set("col_blue", String.col_blue)
+global_symbol_table.set("col_yellow", String.col_yellow)
+global_symbol_table.set("col_reset", String.col_reset)
+global_symbol_table.set("col_green", String.col_green)
+
+global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
 global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
