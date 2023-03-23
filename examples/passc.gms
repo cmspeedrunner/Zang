@@ -1,1 +1,0 @@
-passc("start cmd)
