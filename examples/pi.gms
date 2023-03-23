@@ -1,1 +1,0 @@
-writeln(math_pi)
