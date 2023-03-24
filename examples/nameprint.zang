@@ -1,6 +1,5 @@
 fn main()
-    writeln("Whats your name?")
-    let name = read()
+    let name = read("Whats your name?")
     writeln("Hello, "+name)
 end
 main()
