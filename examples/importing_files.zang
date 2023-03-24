@@ -1,0 +1,2 @@
+let choice = read("What file do you want to run? ")
+run(choice)
