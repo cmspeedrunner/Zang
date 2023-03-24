@@ -1,5 +1,0 @@
-writeln(col_purple+"Welcome to the ZMCL(Zang Made Command Line)"+col_reset)
-while True then
-    let command = read(col_blue+"ZMCL>"+col_yellow)
-    passc(command)
-end
