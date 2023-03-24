@@ -1694,6 +1694,7 @@ class BuiltInFunction(BaseFunction):
 
   def execute_writeln(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
 
   def execute_opentab(self, exec_ctx):
