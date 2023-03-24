@@ -1494,6 +1494,7 @@ Number.math_PI = Number(math.pi)
 Number.math_inf = Number(math.inf)
 
 
+
 import random
 Number.random = Number(random.random())
 
@@ -1755,6 +1756,8 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.true if is_number else Number.false)
   execute_is_list.arg_names = ["value"]
 
+
+
   def execute_is_function(self, exec_ctx):
     is_number = isinstance(exec_ctx.symbol_table.get("value"), BaseFunction)
     return RTResult().success(Number.true if is_number else Number.false)
@@ -1891,6 +1894,7 @@ BuiltInFunction.read       = BuiltInFunction("read")
 BuiltInFunction.read_int   = BuiltInFunction("read_int")
 BuiltInFunction.clear       = BuiltInFunction("clear")
 BuiltInFunction.is_number   = BuiltInFunction("is_number")
+
 BuiltInFunction.is_string   = BuiltInFunction("is_string")
 BuiltInFunction.is_list     = BuiltInFunction("is_list")
 BuiltInFunction.is_function = BuiltInFunction("is_function")
@@ -2041,7 +2045,7 @@ class Interpreter:
 
     if node.op_tok.type == TT_MINUS:
       number, error = number.multed_by(Number(-1))
-    elif node.op_tok.matches(TT_KEYWORD, 'NOT'):
+    elif node.op_tok.matches(TT_KEYWORD, 'not'):
       number, error = number.notted()
 
     if error:
@@ -2196,6 +2200,9 @@ global_symbol_table.set("random", Number.random)
 global_symbol_table.set("False", Number.false)
 global_symbol_table.set("True", Number.true)
 global_symbol_table.set("math_pi", Number.math_PI)
+
+
+
 global_symbol_table.set("col_red", String.col_red)
 global_symbol_table.set("col_purple", String.col_purple)
 global_symbol_table.set("col_blue", String.col_blue)
@@ -2217,6 +2224,7 @@ global_symbol_table.set("read_int", BuiltInFunction.read_int)
 global_symbol_table.set("clear", BuiltInFunction.clear)
 global_symbol_table.set("cls", BuiltInFunction.clear)
 global_symbol_table.set("is_num", BuiltInFunction.is_number)
+
 global_symbol_table.set("is_str", BuiltInFunction.is_string)
 global_symbol_table.set("is_list", BuiltInFunction.is_list)
 global_symbol_table.set("is_fn", BuiltInFunction.is_function)
