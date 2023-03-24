@@ -2,7 +2,7 @@
 # IMPORTS
 #######################################
 
-
+import webbrowser
 import string
 import os
 import math
@@ -1694,33 +1694,45 @@ class BuiltInFunction(BaseFunction):
 
   def execute_writeln(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
-    return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
+
+  def execute_opentab(self, exec_ctx):
+    webbrowser.open_new_tab(str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(Number.null)
+  execute_opentab.arg_names = ['value']
+
   
   def execute_writeln_ret(self, exec_ctx):
     return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
   execute_writeln_ret.arg_names = ['value']
   
   def execute_read(self, exec_ctx):
-    text = input()
+    content = str(exec_ctx.symbol_table.get('value'))
+    text = input(content)
     return RTResult().success(String(text))
-  execute_read.arg_names = []
+  execute_read.arg_names = ['value']
 
   def execute_passc(self, exec_ctx):
     os.system(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
   execute_passc.arg_names = ['value']
 
+  def execute_msg(self, exec_ctx):
+    os.system("msg * "+str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(Number.null)
+  execute_msg.arg_names = ['value']
+
   def execute_read_int(self, exec_ctx):
     while True:
-      text = input()
+      content = str(exec_ctx.symbol_table.get('value'))
+      text = input(content)
       try:
         number = int(text)
         break
       except ValueError:
         print(f"'{text}' must be an integer. Try again!")
     return RTResult().success(Number(number))
-  execute_read_int.arg_names = []
+  execute_read_int.arg_names = ['value']
 
   def execute_clear(self, exec_ctx):
     os.system('cls' if os.name == 'nt' else 'cls') 
@@ -1869,7 +1881,10 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
+BuiltInFunction.opentab      = BuiltInFunction("opentab")
+
 BuiltInFunction.passc      = BuiltInFunction("passc")
+BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
 BuiltInFunction.read       = BuiltInFunction("read")
 BuiltInFunction.read_int   = BuiltInFunction("read_int")
@@ -2189,7 +2204,12 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
+
+global_symbol_table.set("opentab", BuiltInFunction.opentab)
+
 global_symbol_table.set("passc", BuiltInFunction.passc)
+global_symbol_table.set("msg", BuiltInFunction.msg)
+
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
 global_symbol_table.set("read", BuiltInFunction.read)
 global_symbol_table.set("read_int", BuiltInFunction.read_int)
