@@ -71,7 +71,7 @@ def highlight_syntax(event=None):
 
 root = tk.Tk()
 root.title('Text Editor')
-root.iconname("")
+root.iconbitmap("C:\\Windows\\System32\\cmd.exe")
 # Create text widget and scrollbar
 text = tk.Text(root, bg="#333333", fg="#ffffff", font=code_font)
 scrollbar = tk.Scrollbar(root, command=text.yview)
@@ -134,6 +134,8 @@ def open_terminal():
     # Create a Toplevel window for the terminal
     terminal_window = tk.Toplevel(root)
     terminal_window.title("Terminal")
+    root.iconbitmap("C:\\Windows\\System32\\cmd.exe")
+    terminal_window.iconbitmap("C:\\Windows\\System32\\cmd.exe")
 
     # Create a text widget for the terminal output
     terminal_output = tk.Text(terminal_window, bg="#000000", fg="#ffffff", font=code_font)
