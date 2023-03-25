@@ -1509,7 +1509,7 @@ class Number(Value):
   
   def __repr__(self):
     return str(self.value)
-
+import os
 Number.null = Number(0)
 Number.false = Number(0)
 Number.true = Number(1)
@@ -1728,6 +1728,8 @@ class BuiltInFunction(BaseFunction):
 
   #####################################
 
+ 
+
   def execute_writeln(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
@@ -1917,6 +1919,11 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_run.arg_names = ["fn"]
 
+import string
+
+String.string_letters = String(string.ascii_letters)
+String.string_punct = String(string.punctuation)
+String.string_digits = String(string.digits)
 String.col_red = String("\u001b[31m")
 String.col_reset = String("\u001b[0m")
 String.col_blue = String("\u001b[34m")
@@ -2246,6 +2253,12 @@ global_symbol_table.set("False", Number.false)
 global_symbol_table.set("True", Number.true)
 global_symbol_table.set("math_pi", Number.math_PI)
 
+
+
+
+global_symbol_table.set("string_punct", String.string_punct)
+global_symbol_table.set("string_digits", String.string_digits)
+global_symbol_table.set("string_letters", String.string_letters)
 
 
 global_symbol_table.set("col_red", String.col_red)
