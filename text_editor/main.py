@@ -21,7 +21,7 @@ def highlight_syntax(event=None):
             end = start + '+{}c'.format(len(keyword))
             text.tag_add('keyword', start, end)
             start = end
-    for keyword in ["end", "then", "to", "and","break","return"]:
+    for keyword in ["end", "then", "to", "and","break","return","continue"]:
         start = '1.0'
         while True:
             start = text.search(r'\m{}\M'.format(keyword), start, 'end', count=stop_search, regexp=True)
@@ -170,5 +170,5 @@ def open_terminal():
 
     # Bind the Enter key to the run_command function
     terminal_input.bind("<Return>", lambda event: run_command())
-file_menu.add_command(label="Open Terminal", command=open_terminal)
+file_menu.add_command(label="Open Shell", command=open_terminal)
 root.mainloop()
