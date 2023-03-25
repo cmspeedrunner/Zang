@@ -10,7 +10,9 @@ To run a script must go into the command prompt and make sure your working direc
 ## Starting the shell
 To start the shell simply run, in the command line `python shell.py` and thats it
 ## Text Editor
-I would **highly** recommend using the text editor to write your programs, it has syntax highlighting and a built in terminal to do everything you need to do, it is very useful to use and is a great tool to help you write better Zang. This is what a simple fibbonachi sequence in Zang's Text editor![image](https://user-images.githubusercontent.com/109184310/227732333-3c6850f5-5551-4bab-a091-aa18e237ec68.png)
+I would **highly** recommend using the text editor to write your programs, it has syntax highlighting and a built in terminal to do everything you need to do, it is very useful to use and is a great tool to help you write better Zang. This is what a simple fibbonachi sequence and fizzbuzz in Zang's Text editor![image](https://user-images.githubusercontent.com/109184310/227738557-c5648b93-e083-4e75-b630-73edb1e345bd.png)
+![image](https://user-images.githubusercontent.com/109184310/227738465-a286198a-97b1-47ae-8abf-de42a73b9630.png)
+
 
 ## Tutorial
 ### Your first Zang Program
