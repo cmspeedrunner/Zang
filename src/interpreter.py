@@ -104,6 +104,8 @@ TT_MINUS    	= 'MINUS'
 TT_MUL      	= 'MUL'
 TT_DIV      	= 'DIV'
 TT_POW				= 'POW'
+TT_MOD				= 'MOD'
+
 TT_EQ					= 'EQ'
 TT_LPAREN   	= 'LPAREN'
 TT_RPAREN   	= 'RPAREN'
@@ -204,8 +206,13 @@ class Lexer:
       elif self.current_char == '/':
         tokens.append(Token(TT_DIV, pos_start=self.pos))
         self.advance()
+      elif self.current_char == '%':
+        tokens.append(Token(TT_MOD, pos_start=self.pos))
+        self.advance()
       elif self.current_char == '^':
         tokens.append(Token(TT_POW, pos_start=self.pos))
+        self.advance()
+      
         self.advance()
       elif self.current_char == '(':
         tokens.append(Token(TT_LPAREN, pos_start=self.pos))
@@ -706,7 +713,7 @@ class Parser:
     return self.bin_op(self.term, (TT_PLUS, TT_MINUS))
 
   def term(self):
-    return self.bin_op(self.factor, (TT_MUL, TT_DIV))
+    return self.bin_op(self.factor, (TT_MUL, TT_DIV, TT_MOD))
 
   def factor(self):
     res = ParseResult()
@@ -723,6 +730,7 @@ class Parser:
 
   def power(self):
     return self.bin_op(self.call, (TT_POW, ), self.factor)
+
 
   def call(self):
     res = ParseResult()
@@ -1331,9 +1339,12 @@ class Value:
 
   def dived_by(self, other):
     return None, self.illegal_operation(other)
+  def mod_by(self, other):
+    return None, self.illegal_operation(other)
 
   def powed_by(self, other):
     return None, self.illegal_operation(other)
+
 
   def get_comparison_eq(self, other):
     return None, self.illegal_operation(other)
@@ -1414,7 +1425,19 @@ class Number(Value):
       return Number(self.value / other.value).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
+  def mod_by(self, other):
+    if isinstance(other, Number):
+      if other.value == 0:
+        return None, RTError(
+          other.pos_start, other.pos_end,
+          'Division by zero',
+          self.context
+        )
 
+      return Number(self.value % other.value).set_context(self.context), None
+    else:
+      return None, Value.illegal_operation(self, other)
+    
   def powed_by(self, other):
     if isinstance(other, Number):
       return Number(self.value ** other.value).set_context(self.context), None
@@ -1575,6 +1598,18 @@ class List(Value):
         )
     else:
       return None, Value.illegal_operation(self, other)
+  def mod_by(self, other):
+    if isinstance(other, Number):
+      try:
+        return self.elements[other.value], None
+      except:
+        return None, RTError(
+          other.pos_start, other.pos_end,
+          'Element at this index could not be retrieved from list because index is out of bounds',
+          self.context
+        )
+    else:
+      return None, Value.illegal_operation(self, other)
   
   def copy(self):
     copy = List(self.elements)
@@ -1697,6 +1732,11 @@ class BuiltInFunction(BaseFunction):
     print(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
+
+  def execute_put(self, exec_ctx):
+    print(str(exec_ctx.symbol_table.get('value')),end="")
+    return RTResult().success(Number.null)
+  execute_put.arg_names = ['value']
 
   def execute_opentab(self, exec_ctx):
     webbrowser.open_new_tab(str(exec_ctx.symbol_table.get('value')))
@@ -1885,6 +1925,7 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
+BuiltInFunction.put      = BuiltInFunction("put")
 BuiltInFunction.opentab      = BuiltInFunction("opentab")
 
 BuiltInFunction.passc      = BuiltInFunction("passc")
@@ -2006,14 +2047,18 @@ class Interpreter:
 
     if node.op_tok.type == TT_PLUS:
       result, error = left.added_to(right)
+
     elif node.op_tok.type == TT_MINUS:
       result, error = left.subbed_by(right)
     elif node.op_tok.type == TT_MUL:
       result, error = left.multed_by(right)
     elif node.op_tok.type == TT_DIV:
       result, error = left.dived_by(right)
+    elif node.op_tok.type == TT_MOD:
+      result, error = left.mod_by(right)
     elif node.op_tok.type == TT_POW:
       result, error = left.powed_by(right)
+
     elif node.op_tok.type == TT_EE:
       result, error = left.get_comparison_eq(right)
     elif node.op_tok.type == TT_NE:
@@ -2212,6 +2257,7 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
+global_symbol_table.set("put", BuiltInFunction.put)
 
 global_symbol_table.set("opentab", BuiltInFunction.opentab)
 
