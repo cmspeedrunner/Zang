@@ -174,5 +174,11 @@ To use Nil values in Zang its as simple as just using `nil` like this:
 let x = nil
 writeln(nil)
 ```
+
+### Random
+I will soon expand the inbuilt random library because as of now, all it can do is generate a random float between 0-1. But to call this, you just do:
+```javascript
+writeln(random)
+```
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading
