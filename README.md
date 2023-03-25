@@ -181,7 +181,14 @@ I will soon expand the inbuilt random library because as of now, all it can do i
 writeln(random)
 ```
 
+### String Library
+There is a small string library that is included that includes punctuation, letters and digits. Here is an example:<br>
+```javascript
+writeln(string_punct)
+writeln(string_letters)
+writeln(string_digits)
+```
+I might expand this library but no promises!
 
-This will output the time and then the date, the dt stands for "DateTime"
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading
