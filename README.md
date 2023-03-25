@@ -180,5 +180,13 @@ I will soon expand the inbuilt random library because as of now, all it can do i
 ```javascript
 writeln(random)
 ```
+
+### Date and Time
+There is a small date a time library which includes, as the name implys, the date and the time. This is how you use it:
+```javascript
+writeln(dt_time)
+writeln(dt_date)
+```
+This will output the time and then the date, the dt stands for "DateTime"
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading
