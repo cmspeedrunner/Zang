@@ -148,12 +148,7 @@ This would output:
 50
 ```
 Functions can also return values
-### Math Library
-There are two inbuilts within the Library, there is Pi and inf. Inf is an infinite number and pi is 3.14159265, this is how you can acess them<br>
-```javascript
-writeln(math_inf)
-writeln(math_pi)
-```
+
 ### Comments
 To do comments it is a pipe char, (|) for example:
 ```python
@@ -175,10 +170,17 @@ let x = nil
 writeln(nil)
 ```
 
-### Random
+### Random Library
 I will soon expand the inbuilt random library because as of now, all it can do is generate a random float between 0-1. But to call this, you just do:
 ```javascript
 writeln(random)
+```
+
+### Math Library
+There are two inbuilts within the Library, there is Pi and inf. Inf is an infinite number and pi is 3.14159265, this is how you can acess them<br>
+```javascript
+writeln(math_inf)
+writeln(math_pi)
 ```
 
 ### String Library
