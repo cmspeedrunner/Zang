@@ -1,5 +1,6 @@
 
 for i = 1 to 1000001 then
-continue
+    i + 1
 end
+
 writeln(i)
