@@ -1,7 +1,9 @@
 import tkinter as tk
-from tkinter.filedialog import asksaveasfilename, askopenfilename
+from tkinter.filedialog import *
 import os
-code_font = ("Consolas", 12)
+code_font = ("Lucida Console", 20)
+
+
 
 def highlight_syntax(event=None):
     '''Highlight syntax elements in different colors'''
@@ -37,7 +39,7 @@ def highlight_syntax(event=None):
             end = start + '+{}c'.format(len(keyword))
             text.tag_add('definers', start, end)
             start = end
-    for keyword in ["math_pi", "math_inf", "col_red", "col_green", "col_reset", "col_yellow", "col_blue","col_purple"]:
+    for keyword in ["math_pi", "math_inf", "col_red", "col_green", "col_reset", "col_yellow", "col_blue","col_purple","nil"]:
         start = '1.0'
         while True:
             start = text.search(r'\m{}\M'.format(keyword), start, 'end', count=stop_search, regexp=True)
@@ -69,7 +71,7 @@ def highlight_syntax(event=None):
 
 root = tk.Tk()
 root.title('Text Editor')
-
+root.iconname("")
 # Create text widget and scrollbar
 text = tk.Text(root, bg="#333333", fg="#ffffff", font=code_font)
 scrollbar = tk.Scrollbar(root, command=text.yview)
@@ -113,16 +115,17 @@ def save_file():
     with open(file_path, "w") as file:
         file.write(text.get(1.0, tk.END))
 
+
 # Create a menu bar with code font and dark mode colors
 menu_bar = tk.Menu(root, bg="#333333", fg="#ffffff", font=code_font)
 file_menu = tk.Menu(menu_bar, tearoff=0, bg="#333333", fg="#ffffff", font=code_font)
 file_menu.add_command(label="Open", command=open_file)
-file_menu.add_command(label="Save", command=save_file)
+file_menu.add_command(label="Save as", command=save_file)
+
 file_menu.add_separator()
 file_menu.add_command(label="Exit", command=root.quit)
 menu_bar.add_cascade(label="File", menu=file_menu)
 
-# Add the menu bar to the window
 root.config(menu=menu_bar)
 
 # Set the background color of the window to black
@@ -165,9 +168,5 @@ def open_terminal():
 
     # Bind the Enter key to the run_command function
     terminal_input.bind("<Return>", lambda event: run_command())
-
-# Create a button to open the terminal window
-terminal_button = tk.Button(root, text="Open Terminal", command=open_terminal)
-terminal_button.pack()
-# Run the Tkinter event loop
+file_menu.add_command(label="Open Terminal", command=open_terminal)
 root.mainloop()
