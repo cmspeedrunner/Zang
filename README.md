@@ -192,5 +192,12 @@ writeln(string_digits)
 ```
 I might expand this library but no promises!
 
+### Sys Library
+There is an inbuilt Zang/sys library which has things like the link to the github, the version and the platform its running on, to call it, all you have to do is:<br>
+```javascript
+writeln(zang_link)
+writeln(zang_platform)
+writeln(zang_version)
+```
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading
