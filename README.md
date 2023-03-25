@@ -10,7 +10,8 @@ To run a script must go into the command prompt and make sure your working direc
 ## Starting the shell
 To start the shell simply run, in the command line `python shell.py` and thats it
 ## Text Editor
-I would **highly** recommend using the text editor to write your programs, it has syntax highlighting and a built in terminal to do everything you need to do, it is very useful to use and is a great tool to help you write better Zang
+I would **highly** recommend using the text editor to write your programs, it has syntax highlighting and a built in terminal to do everything you need to do, it is very useful to use and is a great tool to help you write better Zang. This is what a simple fibbonachi sequence in Zang's Text editor![image](https://user-images.githubusercontent.com/109184310/227732333-3c6850f5-5551-4bab-a091-aa18e237ec68.png)
+
 ## Tutorial
 ### Your first Zang Program
 Your first Zang program will be a simple hello world program, all it does is output hello world to the console. To output any value to the std.output you would do `writeln` to write a line and then your value between the corresponding brackets, so a simple hello world program would look like this:<br>
