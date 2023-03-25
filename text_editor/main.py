@@ -4,7 +4,6 @@ import os
 code_font = ("Lucida Console", 20)
 
 
-
 def highlight_syntax(event=None):
     '''Highlight syntax elements in different colors'''
     # Remove any previous tags
@@ -39,7 +38,7 @@ def highlight_syntax(event=None):
             end = start + '+{}c'.format(len(keyword))
             text.tag_add('definers', start, end)
             start = end
-    for keyword in ["math_pi", "math_inf", "col_red", "col_green", "col_reset", "col_yellow", "col_blue","col_purple","nil"]:
+    for keyword in ["math_pi", "math_inf", "col_red","random", "col_green", "col_reset", "col_yellow", "col_blue","col_purple","nil"]:
         start = '1.0'
         while True:
             start = text.search(r'\m{}\M'.format(keyword), start, 'end', count=stop_search, regexp=True)
