@@ -1920,6 +1920,11 @@ class BuiltInFunction(BaseFunction):
   execute_run.arg_names = ["fn"]
 
 import string
+import sys
+
+String.zang_platform = String(sys.platform)
+String.zang_version = String("0.1")
+String.zang_link = String("https://github/cmspeedrunner/Zang")
 
 String.string_letters = String(string.ascii_letters)
 String.string_punct = String(string.punctuation)
@@ -2259,6 +2264,9 @@ global_symbol_table.set("math_pi", Number.math_PI)
 global_symbol_table.set("string_punct", String.string_punct)
 global_symbol_table.set("string_digits", String.string_digits)
 global_symbol_table.set("string_letters", String.string_letters)
+global_symbol_table.set("zang_platform", String.zang_platform)
+global_symbol_table.set("zang_version", String.zang_version)
+global_symbol_table.set("zang_link", String.zang_link)
 
 
 global_symbol_table.set("col_red", String.col_red)
