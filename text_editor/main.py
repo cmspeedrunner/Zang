@@ -38,7 +38,7 @@ def highlight_syntax(event=None):
             end = start + '+{}c'.format(len(keyword))
             text.tag_add('definers', start, end)
             start = end
-    for keyword in ["math_pi", "math_inf", "col_red","random", "col_green", "col_reset", "col_yellow", "col_blue","col_purple","nil","string_letters", "string_digits", "string_punct"]:
+    for keyword in ["math_pi", "math_inf", "col_red","random", "col_green", "col_reset", "col_yellow", "col_blue","col_purple","nil","string_letters", "string_digits", "string_punct","zang_version", "zang_platform", "zang_link"]:
         start = '1.0'
         while True:
             start = text.search(r'\m{}\M'.format(keyword), start, 'end', count=stop_search, regexp=True)
