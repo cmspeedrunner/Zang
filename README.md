@@ -169,6 +169,12 @@ To use Nil values in Zang its as simple as just using `nil` like this:
 let x = nil
 writeln(nil)
 ```
+### Multiline Statements
+You can write any Zang program in one line using a semicolon, like this:
+```javascript
+let x = 100; let x = tostr(x); writeln(x*3); msg(x*3)
+```
+
 ### Type conversion
 You can convert a number to a string from an integer or list. This is how:
 ```javascript
