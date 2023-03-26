@@ -201,10 +201,11 @@ writeln(zang_version)
 ```
 
 ### File Library
-As of 0.1 the file library is small. It has two functions, `output_file` and `run`, we looked at `run` already, but in short, `run` takes in a .zang file and runs it through the interpreter. On the other hand `output_file` will print a files contents. Yes! I am working on being able to save a file in a variable, sorry. But for now this is a little file printing program:
+As of 0.1 the file library is small. It has two functions, `open` and `run`, we looked at `run` already, but in short, `run` takes in a .zang file and runs it through the interpreter. On the other hand `open` will open, read and close a file.
 ```javascript
 let filename = read("What file do you want to print: ")
-output_file(filename)
+let contents = open(filename)
+writeln(contents)
 ```
 I am looking to expand the file library
 ## Thats All Folks!
