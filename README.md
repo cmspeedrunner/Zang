@@ -203,7 +203,14 @@ writeln(string_punct)
 writeln(string_letters)
 writeln(string_digits)
 ```
-I might expand this library but no promises!
+There is also a string manipulation tool, `trim` to trim whitespace off either side of the string, an example:
+```javascript
+let untrimmed = "    hello     "
+let trimmed = trim(untrimmed)
+if trimmed == "hello" then
+     writeln("Trim works!")
+end
+```
 
 ### Sys Library
 There is an inbuilt Zang/sys library which has things like the link to the github, the version and the platform its running on, to call it, all you have to do is:<br>
