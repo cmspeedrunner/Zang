@@ -1,0 +1,2 @@
+let file = open("src/shell.py")
+writeln(file)
