@@ -1,5 +1,14 @@
-writeln(col_purple+"Welcome to the ZMCL(Zang Made Command Line)"+col_reset)
-while True then
-    let command = read(col_blue+"ZMCL>"+col_yellow)
-    passc(command)
+fn fib(n)
+   if n > 0 then
+      writeln("Incorrect Input")
+   elif n == 0 then
+      return 0
+   elif n == 1 or n == 2 then
+      return 1
+   else 
+      return fib(n-1) + fib(n-2)
+end
+
+for i = 0 to 25 then
+   fib(i)
 end
