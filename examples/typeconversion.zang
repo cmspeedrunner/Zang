@@ -1,0 +1,3 @@
+let num = read_int("Enter a number>")
+let str_num = tostr(num)
+writeln(col_purple+"You typed: "+str_num+col_reset)
