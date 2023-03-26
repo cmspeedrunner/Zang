@@ -29,7 +29,7 @@ def highlight_syntax(event=None):
             end = start + '+{}c'.format(len(keyword))
             text.tag_add('intermediates', start, end)
             start = end
-    for keyword in ["writeln","tostr", "open","writeln_ret", "put","msg", "passc","read","read_int", "append","pop", "opentab", "clear", "is_number", "is_string","is_list","is_function","len","extend","run", "let"]:
+    for keyword in ["writeln","tostr", "trim", "open","writeln_ret", "put","msg", "passc","read","read_int", "append","pop", "opentab", "clear", "is_number", "is_string","is_list","is_function","len","extend","run", "let"]:
         start = '1.0'
         while True:
             start = text.search(r'\m{}\M'.format(keyword), start, 'end', count=stop_search, regexp=True)
