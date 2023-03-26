@@ -169,7 +169,14 @@ To use Nil values in Zang its as simple as just using `nil` like this:
 let x = nil
 writeln(nil)
 ```
-
+### Type conversion
+You can convert a number to a string from an integer or list. This is how:
+```javascript
+let num = read_int("Enter num>")
+let str_num = tostr(num)
+writeln("You typed: "+col_purple+num+col_reset)
+```
+This can be useful for using numbers in strings
 ### Random Library
 I will soon expand the inbuilt random library because as of now, all it can do is generate a random float between 0-1. But to call this, you just do:
 ```javascript
