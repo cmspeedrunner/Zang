@@ -199,5 +199,13 @@ writeln(zang_link)
 writeln(zang_platform)
 writeln(zang_version)
 ```
+
+### File Library
+As of 0.1 the file library is small. It has two functions, `output_file` and `run`, we looked at `run` already, but in short, `run` takes in a .zang file and runs it through the interpreter. On the other hand `output_file` will print a files contents. Yes! I am working on being able to save a file in a variable, sorry. But for now this is a little file printing program:
+```javascript
+let filename = read("What file do you want to print: ")
+output_file(filename)
+```
+I am looking to expand the file library
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading
