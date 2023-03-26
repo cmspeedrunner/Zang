@@ -1763,7 +1763,10 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_opentab.arg_names = ['value']
 
-
+  def execute_trim(self, exec_ctx):
+    content = (str(exec_ctx.symbol_table.get('value'))).strip()
+    return RTResult().success(String(content))
+  execute_trim.arg_names = ['value']
 
   
   def execute_writeln_ret(self, exec_ctx):
@@ -1966,6 +1969,7 @@ BuiltInFunction.opentab      = BuiltInFunction("opentab")
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
+BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
 BuiltInFunction.open   = BuiltInFunction("open")
 
@@ -2313,6 +2317,7 @@ global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
 
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
+global_symbol_table.set("trim", BuiltInFunction.trim)
 global_symbol_table.set("tostr", BuiltInFunction.tostr)
 global_symbol_table.set("open", BuiltInFunction.open)
 global_symbol_table.set("read", BuiltInFunction.read)
