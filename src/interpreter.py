@@ -1734,6 +1734,17 @@ class BuiltInFunction(BaseFunction):
     print(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
+ 
+  def execute_output_file(self, exec_ctx):
+    try:
+      with open(str(exec_ctx.symbol_table.get('value'))) as f:
+        f = f.read()
+        print(f)
+    except FileNotFoundError as e:
+      print("\u001b[31mFile not found: "+str(e.filename)+"\n"+e.args+"\u001b[0m")
+    return RTResult().success(Number.null)
+  execute_output_file.arg_names = ['value']
+
 
   def execute_put(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')),end="")
@@ -1742,6 +1753,11 @@ class BuiltInFunction(BaseFunction):
 
   def execute_opentab(self, exec_ctx):
     webbrowser.open_new_tab(str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(Number.null)
+  execute_opentab.arg_names = ['value']
+
+  def execute_exit(self, exec_ctx):
+    sys.exit()
     return RTResult().success(Number.null)
   execute_opentab.arg_names = ['value']
 
@@ -1922,9 +1938,12 @@ class BuiltInFunction(BaseFunction):
 import string
 import sys
 
+
+
 String.zang_platform = String(sys.platform)
 String.zang_version = String("0.1")
 String.zang_link = String("https://github/cmspeedrunner/Zang")
+
 
 String.string_letters = String(string.ascii_letters)
 String.string_punct = String(string.punctuation)
@@ -1943,6 +1962,10 @@ BuiltInFunction.opentab      = BuiltInFunction("opentab")
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
+BuiltInFunction.exit   = BuiltInFunction("exit")
+
+BuiltInFunction.output_file   = BuiltInFunction("output_file")
+
 BuiltInFunction.read       = BuiltInFunction("read")
 BuiltInFunction.read_int   = BuiltInFunction("read_int")
 BuiltInFunction.clear       = BuiltInFunction("clear")
@@ -2284,8 +2307,11 @@ global_symbol_table.set("opentab", BuiltInFunction.opentab)
 
 global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
+global_symbol_table.set("exit", BuiltInFunction.exit)
 
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
+global_symbol_table.set("output_file", BuiltInFunction.output_file)
+
 global_symbol_table.set("read", BuiltInFunction.read)
 global_symbol_table.set("read_int", BuiltInFunction.read_int)
 global_symbol_table.set("clear", BuiltInFunction.clear)
