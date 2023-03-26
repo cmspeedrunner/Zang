@@ -1728,7 +1728,13 @@ class BuiltInFunction(BaseFunction):
 
   #####################################
 
- 
+  def execute_tostr(self, exec_ctx):
+    text = str(exec_ctx.symbol_table.get('value'))
+    
+    return RTResult().success(String(text))
+  execute_tostr.arg_names = ['value']
+
+
 
   def execute_writeln(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
@@ -1960,6 +1966,7 @@ BuiltInFunction.opentab      = BuiltInFunction("opentab")
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
+BuiltInFunction.tostr   = BuiltInFunction("tostr")
 BuiltInFunction.open   = BuiltInFunction("open")
 
 
@@ -2306,6 +2313,7 @@ global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
 
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
+global_symbol_table.set("tostr", BuiltInFunction.tostr)
 global_symbol_table.set("open", BuiltInFunction.open)
 global_symbol_table.set("read", BuiltInFunction.read)
 global_symbol_table.set("read_int", BuiltInFunction.read_int)
