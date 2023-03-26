@@ -34,7 +34,10 @@ now you can output this to make another hello world program, this time using var
 let message = "Hello, World!"
 writeln(message)
 ```
-This, once again should output "Hello, World"<br>
+This, once again should output 
+```
+Hello, World
+```
 ### For loops
 A little step up from the past 2 programs we made, this program we made will include a loop, How exciting! This specific one we will make will count up to 100 and output the numbers:<br>
 ```javascript
