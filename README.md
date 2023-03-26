@@ -20,7 +20,10 @@ Your first Zang program will be a simple hello world program, all it does is out
 ```python
 writeln("Hello, World!")
 ```
-There it is, now save it, run it and see what it outputs, it should output "Hello, World!".<br>
+There it is, now save it, run it and see what it outputs, it should output
+```
+Hello, World!
+```
 ### Variables
 Variables are pretty simple, to allocate memory into a variable you would use the `let` keyword, like this:<br>
 ```javascript
