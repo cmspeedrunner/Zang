@@ -139,6 +139,24 @@ Just like Zang can interop with Cmd, it can also interop with your native web br
 let url = read("What url do you want to open: ")
 opentab(url)
 ```
+### Types
+You can get the type of something by calling `classof`, here is an example:
+```javascript
+writeln(classof([1,2,3]))
+writeln(classof(1))
+writeln(classof(1.1))
+writeln(classof(True))
+writeln(classof("String!"))
+```
+This will output:
+```
+array
+number
+number
+number
+string
+```
+This is because floats and ints share a class, for simplicity and boolean is equal to a number, 1 is true and 0 is false, this is why if you do True + True, it outputs 2.
 This little program prompts a user for a url to open and then opens whatever they enter.
 ### Functions
 Functions are done with the `fn` keyword and dont require a `then` keyword, let me show you a function which multiplies 2 numbers<br>
