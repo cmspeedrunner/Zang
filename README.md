@@ -219,11 +219,13 @@ end
 ```
 
 ### Sys Library
-There is an inbuilt Zang/sys library which has things like the link to the github, the version and the platform its running on, to call it, all you have to do is:<br>
+There is an inbuilt Zang/sys library which has things like the link to the github, the version, the platform, the argv list and the sys version its running on, to call it, all you have to do is:<br>
 ```javascript
 writeln(zang_link)
 writeln(zang_platform)
 writeln(zang_version)
+writeln(zang_argv)
+writeln(zang_sysv)
 ```
 
 ### File Library
