@@ -207,6 +207,63 @@ let str_num = tostr(num)
 writeln("You typed: "+col_purple+num+col_reset)
 ```
 This can be useful for using numbers in strings
+
+### Arrays
+To define an array you just have to type whatever you want within [] like this:
+```javascript
+let list = [1,2,3]
+```
+We can do some things with this array, if we want to get an element of the array we must pop from the index and that will take it out of the array and store it in whatever else you want. Here is an example:
+```javascript
+let list = [1,2,3]
+let middle = pop(list, 1)
+writeln(middle)
+writeln(list)
+```
+This would output:
+```
+2
+1,3
+```
+That is how you can pop elements, there are more tools, such as extend, which will extend an array with another array, for example:
+```javascript
+let list = [1,2,3]
+let list2 = [4,5,6]
+extend(x, y)
+writeln(x)
+```
+This will output:
+```
+[1,2,3,4,5,6]
+```
+You can also traditionally append elements to an array, for example:
+```javascript
+let list = ["My", "name is"]
+append(list, "Jack")
+writeln(list)
+```
+This would output:
+```
+["My", "name is", "Jack"]
+```
+You can also split a string into words with the `split` keyword, like this:
+```javascript
+let string = "Hello World !!!"
+writeln(split(string))
+```
+This would output:
+```
+["Hello", "World", "!!!"]
+```
+And last but not least, you can get the length of an array with the `len` keyword, for example:
+```javascript
+let list = [1,2,3]
+writeln(len(list))
+```
+This would return:
+```
+3
+```
 ### Random Library
 I will soon expand the inbuilt random library because as of now, all it can do is generate a random float between 0-1. But to call this, you just do:
 ```javascript
