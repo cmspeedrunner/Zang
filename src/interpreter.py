@@ -1787,6 +1787,11 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(String(content))
   execute_classof.arg_names = ['value']
 
+
+  def execute_split(self, exec_ctx):
+    content = (str(exec_ctx.symbol_table.get('value'))).split()
+    return RTResult().success(List(content))
+  execute_split.arg_names = ['value']
   
   def execute_writeln_ret(self, exec_ctx):
     return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
@@ -1797,6 +1802,8 @@ class BuiltInFunction(BaseFunction):
     text = input(content)
     return RTResult().success(String(text))
   execute_read.arg_names = ['value']
+
+
 
   def execute_passc(self, exec_ctx):
     os.system(str(exec_ctx.symbol_table.get('value')))
@@ -1983,6 +1990,7 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
+BuiltInFunction.split      = BuiltInFunction("split")
 BuiltInFunction.zang_i      = BuiltInFunction("zang_i")
 BuiltInFunction.put      = BuiltInFunction("put")
 BuiltInFunction.opentab      = BuiltInFunction("opentab")
@@ -2332,6 +2340,7 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
+global_symbol_table.set("split", BuiltInFunction.split)
 global_symbol_table.set("zang_i", BuiltInFunction.zang_i)
 global_symbol_table.set("put", BuiltInFunction.put)
 
