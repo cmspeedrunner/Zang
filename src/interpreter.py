@@ -1741,6 +1741,8 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
 
+
+
   def execute_open(self, exec_ctx):
     try:
       with open(str(exec_ctx.symbol_table.get('value'))) as f:
@@ -1750,14 +1752,14 @@ class BuiltInFunction(BaseFunction):
       print("\u001b[31m"+str(e.args)+"\u001b[0m")
   execute_open.arg_names = ['value']
  
-
+ 
 
 
   def execute_put(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')),end="")
     return RTResult().success(Number.null)
   execute_put.arg_names = ['value']
-
+  
   def execute_opentab(self, exec_ctx):
     webbrowser.open_new_tab(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
@@ -1767,6 +1769,23 @@ class BuiltInFunction(BaseFunction):
     content = (str(exec_ctx.symbol_table.get('value'))).strip()
     return RTResult().success(String(content))
   execute_trim.arg_names = ['value']
+
+
+    
+
+  def execute_zang_i(self, exec_ctx):
+    content = (str(exec_ctx.symbol_table.get('value')))
+    lexer = Lexer(0,content)
+    tokens, error = lexer.make_tokens()
+    if error: return None, error
+    lemt = tokens
+    return RTResult().success(List(lemt))
+  execute_zang_i.arg_names = ['value']
+
+  def execute_classof(self, exec_ctx):
+    content = (str(type(exec_ctx.symbol_table.get('value'))))
+    return RTResult().success(String(content))
+  execute_classof.arg_names = ['value']
 
   
   def execute_writeln_ret(self, exec_ctx):
@@ -1801,6 +1820,8 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number(number))
   execute_read_int.arg_names = ['value']
 
+
+
   def execute_clear(self, exec_ctx):
     os.system('cls' if os.name == 'nt' else 'cls') 
     return RTResult().success(Number.null)
@@ -1821,7 +1842,7 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.true if is_number else Number.false)
   execute_is_list.arg_names = ["value"]
 
-
+  
 
   def execute_is_function(self, exec_ctx):
     is_number = isinstance(exec_ctx.symbol_table.get("value"), BaseFunction)
@@ -1944,10 +1965,9 @@ class BuiltInFunction(BaseFunction):
 
 import string
 import sys
-
-
-
 String.zang_platform = String(sys.platform)
+String.zang_sysv = String(sys.version)
+List.zang_argv = List(sys.argv)
 String.zang_version = String("0.1")
 String.zang_link = String("https://github/cmspeedrunner/Zang")
 
@@ -1963,12 +1983,14 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
+BuiltInFunction.zang_i      = BuiltInFunction("zang_i")
 BuiltInFunction.put      = BuiltInFunction("put")
 BuiltInFunction.opentab      = BuiltInFunction("opentab")
 
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
+BuiltInFunction.classof   = BuiltInFunction("classof")
 BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
 BuiltInFunction.open   = BuiltInFunction("open")
@@ -2207,6 +2229,7 @@ class Interpreter:
   def visit_WhileNode(self, node, context):
     res = RTResult()
     elements = []
+    
 
     while True:
       condition = res.register(self.visit(node.condition_node, context))
@@ -2260,10 +2283,8 @@ class Interpreter:
     if res.should_return(): return res
     return_value = return_value.copy().set_pos(node.pos_start, node.pos_end).set_context(context)
     return res.success(return_value)
-
   def visit_ReturnNode(self, node, context):
     res = RTResult()
-
     if node.node_to_return:
       value = res.register(self.visit(node.node_to_return, context))
       if res.should_return(): return res
@@ -2297,6 +2318,8 @@ global_symbol_table.set("string_digits", String.string_digits)
 global_symbol_table.set("string_letters", String.string_letters)
 global_symbol_table.set("zang_platform", String.zang_platform)
 global_symbol_table.set("zang_version", String.zang_version)
+global_symbol_table.set("zang_sysv", String.zang_sysv)
+global_symbol_table.set("zang_argv", List.zang_argv)
 global_symbol_table.set("zang_link", String.zang_link)
 
 
@@ -2309,6 +2332,7 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
+global_symbol_table.set("zang_i", BuiltInFunction.zang_i)
 global_symbol_table.set("put", BuiltInFunction.put)
 
 global_symbol_table.set("opentab", BuiltInFunction.opentab)
@@ -2317,6 +2341,8 @@ global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
 
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
+global_symbol_table.set("classof", BuiltInFunction.classof)
+
 global_symbol_table.set("trim", BuiltInFunction.trim)
 global_symbol_table.set("tostr", BuiltInFunction.tostr)
 global_symbol_table.set("open", BuiltInFunction.open)
@@ -2334,6 +2360,8 @@ global_symbol_table.set("pop", BuiltInFunction.pop)
 global_symbol_table.set("extend", BuiltInFunction.extend)
 global_symbol_table.set("len", BuiltInFunction.len)
 global_symbol_table.set("run", BuiltInFunction.run)
+
+
 
 def run(fn, text):
   # Generate tokens
