@@ -257,7 +257,6 @@ This is a very interesting function that tokenises whatever you pass into it. So
 IDENTIFIER:tostr, LPAREN, IDENTIFIER:trim, LPAREN, IDENTIFIER:writeln, LPAREN, INT:5, PLUS, INT:5, RPAREN, RPAREN, RPAREN, EOF
 ```
 
--Note: argv cannot be used in the shell as arguments are not passed in the shell.
 
 ### File Library
 As of 0.1 the file library is small. It has two functions, `open` and `run`, we looked at `run` already, but in short, `run` takes in a .zang file and runs it through the interpreter. On the other hand `open` will open, read and close a file.
