@@ -245,6 +245,18 @@ writeln(zang_version)
 writeln(zang_argv)
 writeln(zang_sysv)
 ```
+#### zang_i
+zang_i is part of the sys library and is an interpreter function, lets say you have some zang code, you can interpret that into tokens, its like the compile function in python, heres an example:
+```javascript
+let code = "tostr(trim(writeln(5+5)))"
+let tokens = zang_i(code)
+writeln(tokens)
+```
+This is a very interesting function that tokenises whatever you pass into it. So for example the program above would output:
+```
+IDENTIFIER:tostr, LPAREN, IDENTIFIER:trim, LPAREN, IDENTIFIER:writeln, LPAREN, INT:5, PLUS, INT:5, RPAREN, RPAREN, RPAREN, EOF
+```
+
 -Note: argv cannot be used in the shell as arguments are not passed in the shell.
 
 ### File Library
