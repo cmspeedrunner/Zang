@@ -1743,6 +1743,9 @@ class BuiltInFunction(BaseFunction):
 
 
 
+
+
+
   def execute_open(self, exec_ctx):
     try:
       with open(str(exec_ctx.symbol_table.get('value'))) as f:
@@ -1769,6 +1772,8 @@ class BuiltInFunction(BaseFunction):
     content = (str(exec_ctx.symbol_table.get('value'))).strip()
     return RTResult().success(String(content))
   execute_trim.arg_names = ['value']
+
+
 
 
     
@@ -1870,6 +1875,35 @@ class BuiltInFunction(BaseFunction):
     list_.elements.append(value)
     return RTResult().success(Number.null)
   execute_append.arg_names = ["list", "value"]
+
+  def execute_get(self, exec_ctx):
+    list_ = exec_ctx.symbol_table.get("list")
+    index = exec_ctx.symbol_table.get("index")
+
+    if not isinstance(list_, List):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be list",
+        exec_ctx
+      ))
+
+    if not isinstance(index, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+
+    try:
+      element = list_.elements[index.value]
+    except:
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        'Element at this index could not be removed from list because index is out of bounds',
+        exec_ctx
+      ))
+    return RTResult().success(element)
+  execute_get.arg_names = ["list", "index"]
 
   def execute_pop(self, exec_ctx):
     list_ = exec_ctx.symbol_table.get("list")
@@ -1990,6 +2024,7 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
+BuiltInFunction.tobin      = BuiltInFunction("tobin")
 BuiltInFunction.split      = BuiltInFunction("split")
 BuiltInFunction.zang_i      = BuiltInFunction("zang_i")
 BuiltInFunction.put      = BuiltInFunction("put")
@@ -1998,6 +2033,7 @@ BuiltInFunction.opentab      = BuiltInFunction("opentab")
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
+BuiltInFunction.zgui_open   = BuiltInFunction("zgui_open")
 BuiltInFunction.classof   = BuiltInFunction("classof")
 BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
@@ -2014,6 +2050,7 @@ BuiltInFunction.is_list     = BuiltInFunction("is_list")
 BuiltInFunction.is_function = BuiltInFunction("is_function")
 BuiltInFunction.append      = BuiltInFunction("append")
 BuiltInFunction.pop         = BuiltInFunction("pop")
+BuiltInFunction.get         = BuiltInFunction("get")
 BuiltInFunction.extend      = BuiltInFunction("extend")
 BuiltInFunction.len					= BuiltInFunction("len")
 BuiltInFunction.run					= BuiltInFunction("run")
@@ -2340,6 +2377,7 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
+global_symbol_table.set("tobin", BuiltInFunction.tobin)
 global_symbol_table.set("split", BuiltInFunction.split)
 global_symbol_table.set("zang_i", BuiltInFunction.zang_i)
 global_symbol_table.set("put", BuiltInFunction.put)
@@ -2350,6 +2388,7 @@ global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
 
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
+global_symbol_table.set("zgui_open", BuiltInFunction.zgui_open)
 global_symbol_table.set("classof", BuiltInFunction.classof)
 
 global_symbol_table.set("trim", BuiltInFunction.trim)
@@ -2366,6 +2405,7 @@ global_symbol_table.set("is_list", BuiltInFunction.is_list)
 global_symbol_table.set("is_fn", BuiltInFunction.is_function)
 global_symbol_table.set("append", BuiltInFunction.append)
 global_symbol_table.set("pop", BuiltInFunction.pop)
+global_symbol_table.set("get", BuiltInFunction.get)
 global_symbol_table.set("extend", BuiltInFunction.extend)
 global_symbol_table.set("len", BuiltInFunction.len)
 global_symbol_table.set("run", BuiltInFunction.run)
