@@ -213,7 +213,7 @@ To define an array you just have to type whatever you want within [] like this:
 ```javascript
 let list = [1,2,3]
 ```
-We can do some things with this array, if we want to get an element of the array we must pop from the index and that will take it out of the array and store it in whatever else you want. Here is an example:
+We can do some things with this array, if we want to get an element of the array, and remove it we must pop from the index and that will take it out of the array and store it in whatever else you want. Here is an example:
 ```javascript
 let list = [1,2,3]
 let middle = pop(list, 1)
@@ -225,7 +225,19 @@ This would output:
 2
 1,3
 ```
-That is how you can pop elements, there are more tools, such as extend, which will extend an array with another array, for example:
+But, this removes it from the array, if you just want to get the element and not remove it, you can use the `get` function, for example:
+```javascript
+let arr = [1,2,3,4,5]
+let x = get(arr, 2)
+writeln(x)
+writeln(arr)
+```
+this would output:
+```
+3
+[1,2,3,4,5]
+```
+That is how you can get elements, there are more tools, such as extend, which will extend an array with another array, for example:
 ```javascript
 let list = [1,2,3]
 let list2 = [4,5,6]
