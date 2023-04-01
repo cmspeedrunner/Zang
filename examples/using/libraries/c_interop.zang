@@ -1,0 +1,7 @@
+fn compile(filename)
+   passc("gcc c -o "+filename+".exe " + filename+".c")
+end
+
+fn run(filename)
+    passc(filename)
+end
