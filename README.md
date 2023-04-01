@@ -344,4 +344,4 @@ writeln(contents)
 ```
 I am looking to expand the file library
 ## Thats All Folks!
-Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading
+Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading and join to our [discord server](https://discord.gg/288gfGxAGr)
