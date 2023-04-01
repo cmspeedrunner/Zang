@@ -18,6 +18,7 @@ elif result:
     else:
         print(repr(result))
 
-end_time = time.time()  
-elapsed_time = end_time - start_time 
-print('\033[32m' + f"Zang executed in {elapsed_time:.2f}" + '\033[0m', end="")
+if "-s" in sys.argv:
+    end_time = time.time()  
+    elapsed_time = end_time - start_time 
+    print('\033[32m' + f"Zang executed in {elapsed_time:.2f}" + '\033[0m', end="")
