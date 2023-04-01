@@ -1,4 +1,5 @@
-using("demos.zang") | This library has a bunch of demos included. All are used down below
+using("libraries/demos.zang") | This library has a bunch of demos included. All are used down below
+
 print_to(10)
 print_name("Enter your name: ")
 help()
