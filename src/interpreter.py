@@ -1519,7 +1519,6 @@ Number.math_PI = Number(math.pi)
 Number.math_inf = Number(math.inf)
 
 import sys
-sys.set_int_max_str_digits(99999)
 
 import random
 Number.random = Number(random.random())
