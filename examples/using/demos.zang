@@ -1,0 +1,37 @@
+fn print_to(num)
+   for i = 0 to num then
+       writeln(i)
+   end
+end
+
+fn print_name(greeting)
+   let name = read(greeting)
+   writeln("Hello, "+name)
+end
+
+fn help()
+   opentab("https://github.com/cmspeedrunner/zang")
+end
+
+fn exit()
+   passc("exit")
+end
+
+fn fizzbuzz_to(num)
+   for i = 1 to num+1 then
+       if i%3 == 0 and i%5 == 0 then
+          writeln("FizzBuzz")
+       elif i%3 == 0 then
+          writeln("Fizz")
+       elif i%5 == 0 then
+          writeln("Buzz")
+       else
+          writeln(i)
+       end
+    end
+end
+
+fn count_words(string)
+   writeln(len(split(string)))
+end
+
