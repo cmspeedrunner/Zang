@@ -10,6 +10,7 @@ def highlight_syntax(event=None):
     text.tag_remove('keyword', '1.0', 'end')
     text.tag_remove('quote', '1.0', 'end')
     text.tag_remove('digit', '1.0', 'end')
+    text.tag_remove('usingf', '1.0', 'end')
     # Highlight keywords in blue
     for keyword in ['if', 'elif', 'else', 'for', "while", "fn",]:
         start = '1.0'
@@ -69,6 +70,26 @@ def highlight_syntax(event=None):
         text.tag_add('digit', start, end)
         start = end
 
+
+    for keyword in ["using", "using"]:
+        start = '1.0'
+        while True:
+            start = text.search(r'\m{}\M'.format(keyword), start, 'end', count=stop_search, regexp=True)
+            if not start:
+                break
+            end = start + '+{}c'.format(len(keyword))
+            text.tag_add('usingf', start, end)
+            start = end
+    # Highlight text between quotes in orange
+    start = '1.0'
+    while True:
+        start = text.search(r'\d', start, 'end', count=stop_search, regexp=True)
+        if not start:
+            break
+        end = start + '+1c'
+        text.tag_add('quote', start, end)
+        start = end
+
 root = tk.Tk()
 root.title('Text Editor')
 root.iconbitmap("C:\\Windows\\System32\\cmd.exe")
@@ -86,6 +107,7 @@ text.tag_configure('digit', foreground='light green')
 text.tag_configure('intermediates', foreground='light blue')
 text.tag_configure('definers', foreground='cyan')
 text.tag_configure('inbuilts', foreground='yellow')
+text.tag_configure('usingf', foreground='purple')
 
 
 # Bind key events for syntax highlighting
