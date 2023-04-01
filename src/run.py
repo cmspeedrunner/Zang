@@ -1,6 +1,8 @@
 import interpreter as pret
 import time
 import sys
+import os
+os.system("")
 start_time = time.time()  # Start the timer
 
 
