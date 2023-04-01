@@ -1539,6 +1539,31 @@ class String(Value):
       return String(self.value * other.value).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
+  
+  def get_comparison_eq(self, other):
+    if isinstance(other, String):
+      return String(str(self.value == other.value)).set_context(self.context), None
+    else:
+      return None, Value.illegal_operation(self, other)
+
+  def get_comparison_ne(self, other):
+    if isinstance(other, String):
+      return String(str(self.value != other.value)).set_context(self.context), None
+    else:
+      return None, Value.illegal_operation(self, other)
+
+
+  def anded_by(self, other):
+    if isinstance(other, String):
+      return String(str(self.value and other.value)).set_context(self.context), None
+    else:
+      return None, Value.illegal_operation(self, other)
+
+  def ored_by(self, other):
+    if isinstance(other, String):
+      return String(str(self.value or other.value)).set_context(self.context), None
+    else:
+      return None, Value.illegal_operation(self, other)
 
   def is_true(self):
     return len(self.value) > 0
@@ -1940,6 +1965,21 @@ class BuiltInFunction(BaseFunction):
 
   
 
+
+  def execute_find(self, exec_ctx):
+      
+      
+    stringA = exec_ctx.symbol_table.get("stringA")
+    stringB = exec_ctx.symbol_table.get("stringB")
+    stringC = exec_ctx.symbol_table.get("stringC")
+    import re
+
+    m = re.search(str(stringB)+'(.+?)'+str(stringC), str(stringA))
+    if m:
+      s2 = m.group(1)
+    return RTResult().success(String(s2))
+  execute_find.arg_names = ["stringA", "stringB", "stringC"]
+
   def execute_extend(self, exec_ctx):
     listA = exec_ctx.symbol_table.get("listA")
     listB = exec_ctx.symbol_table.get("listB")
@@ -2068,6 +2108,7 @@ String.col_yellow = String("\u001b[33m")
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
 BuiltInFunction.using      = BuiltInFunction("using")
 BuiltInFunction.split      = BuiltInFunction("split")
+BuiltInFunction.find      = BuiltInFunction("find")
 BuiltInFunction.zang_i      = BuiltInFunction("zang_i")
 BuiltInFunction.put      = BuiltInFunction("put")
 BuiltInFunction.opentab      = BuiltInFunction("opentab")
@@ -2420,6 +2461,7 @@ global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
 global_symbol_table.set("using", BuiltInFunction.using)
 global_symbol_table.set("split", BuiltInFunction.split)
+global_symbol_table.set("find", BuiltInFunction.find)
 global_symbol_table.set("zang_i", BuiltInFunction.zang_i)
 global_symbol_table.set("put", BuiltInFunction.put)
 
