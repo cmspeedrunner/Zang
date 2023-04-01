@@ -312,6 +312,12 @@ if trimmed == "hello" then
      writeln("Trim works!")
 end
 ```
+There is also another string manipulation too, `find` to find the string between 2 characters:<br>
+```javascript
+let string = "hello, my name is <<jack>> and this is an example of @@regex??"
+writeln(find(string, "<<" ">>"))
+writeln(find(string, "@@","??"))
+```
 
 ### Sys Library
 There is an inbuilt Zang/sys library which has things like the link to the github, the version, the platform, the argv list and the sys version its running on, to call it, all you have to do is:<br>
