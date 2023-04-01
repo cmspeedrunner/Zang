@@ -1,6 +1,16 @@
 using("libraries/demos.zang") | This library has a bunch of demos included. All are used down below
 using("libraries/zecl.zang") | The Zang Expanded Color Library greatly improves the already standard, inbuilt color library
+using("zang/bettermath.zang") | Use the bettermath library
 
+| BETTERMATH LIBRARY
+writeln(math_countup(100)) | Returns an array with numbers 0-99 (index 0 moment) appended to it
+writeln("")
+writeln(math_sqrt(100)) | Returns the square root as float type of 100
+writeln("") | Just some trash line buffers 
+writeln(math_sqr(100)) |Returns the squared num in brackets, so for this it returns 100*100
+writeln("")
+
+| DEMOS LIBRARY
 print_to(10)
 print_name("Enter your name: ")
 help()
@@ -9,6 +19,7 @@ count_words("This counts words in a string!")
 hello_world()
 add_nums(10,10)
 
+| ZANG EXPANDED COLOR LIBRARY (ZECL)
 using("zang/zecl.zang")
 writeln(red("Red Text!"))
 writeln(purple("With ZECL you dont need to close it!"))
