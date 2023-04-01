@@ -180,13 +180,13 @@ writeln("hello") | Comment right here!
 put("Bye!") | Another comment!
 ```
 -Note: It is important to know that there has to be a newline under the comment, otherewise the interpreter cannot look for a "\n" to stop parsing the comment. Sorry, i know this is bad but it would be better then a grouping based comment system.
-### Running files **IN** Zang
-You can run a file through Zang, this means you can in fact make a program that passes a file to the zang interpeter. This is what that would look like:
+### Importing a file
+You can import a file through zang using the `using` keyword. Like this
 ```javascript
-let src_file = read("Enter your file to run> ")
-run(src_file)
+using("main.zang")
+init()
 ``` 
-Yes, its that easy to run a file and if you run the file your currently running with the `run` keyword then you have some sufficent recursion.
+Given that you have defined any function in your code, you can call it after using it. Make sure everything in your file is within a function though, otherwise anything in the global scope will run on import.
 ### Nil values
 To use Nil values in Zang its as simple as just using `nil` like this:
 ```javascript
@@ -328,7 +328,7 @@ IDENTIFIER:tostr, LPAREN, IDENTIFIER:trim, LPAREN, IDENTIFIER:writeln, LPAREN, I
 
 
 ### File Library
-As of 0.1 the file library is small. It has two functions, `open` and `run`, we looked at `run` already, but in short, `run` takes in a .zang file and runs it through the interpreter. On the other hand `open` will open, read and close a file.
+As of 0.1 the file library is small. It has two functions, `open` and `using`, we looked at `using` already, but in short, `using` takes in a .zang file and imports it so you can use it, like `import` with python. On the other hand `open` will open, read and close a file.
 ```javascript
 let filename = read("What file do you want to print: ")
 let contents = open(filename)
