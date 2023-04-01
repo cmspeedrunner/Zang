@@ -1,6 +1,6 @@
 using("libraries/demos.zang") | This library has a bunch of demos included. All are used down below
 using("libraries/zecl.zang") | The Zang Expanded Color Library greatly improves the already standard, inbuilt color library
-using("zang/bettermath.zang") | Use the bettermath library
+using("libraries/bettermath.zang") | Use the bettermath library
 
 | BETTERMATH LIBRARY
 writeln(math_countup(100)) | Returns an array with numbers 0-99 (index 0 moment) appended to it
