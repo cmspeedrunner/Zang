@@ -7,6 +7,8 @@ import string
 import os
 import math
 
+
+
 #######################################
 # CONSTANTS
 #######################################
@@ -33,19 +35,19 @@ class Error:
 
 class IllegalCharError(Error):
   def __init__(self, pos_start, pos_end, details):
-    super().__init__(pos_start, pos_end, 'Illegal Character', details)
+    super().__init__(pos_start, pos_end, 'Zang Caught ICE:\nIllegal Character', details)
 
 class ExpectedCharError(Error):
   def __init__(self, pos_start, pos_end, details):
-    super().__init__(pos_start, pos_end, 'Expected Character', details)
+    super().__init__(pos_start, pos_end, 'Zang Caught ECE:\nExpected Character', details)
 
 class InvalidSyntaxError(Error):
   def __init__(self, pos_start, pos_end, details=''):
-    super().__init__(pos_start, pos_end, 'Invalid Syntax', details)
+    super().__init__(pos_start, pos_end, 'Zang Caught ISE:\nInvalid Syntax', details)
 
 class RTError(Error):
   def __init__(self, pos_start, pos_end, details, context):
-    super().__init__(pos_start, pos_end, 'Runtime Error', details)
+    super().__init__(pos_start, pos_end, 'Zang Caught RTE: Runtime Error', details)
     self.context = context
 
   def as_string(self):
@@ -682,7 +684,7 @@ class Parser:
     if res.error:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Expected 'let', 'if', 'for', 'while', 'fn', int, float, identifier, '+', '-', '(', '[' or 'noy'"
+        "Expected 'let', 'if', 'for', 'while', 'fn', int, float, identifier, '+', '-', '(', '[' or 'not'"
       ))
 
     return res.success(node)
@@ -1516,7 +1518,8 @@ Number.true = Number(1)
 Number.math_PI = Number(math.pi)
 Number.math_inf = Number(math.inf)
 
-
+import sys
+sys.set_int_max_str_digits(99999)
 
 import random
 Number.random = Number(random.random())
@@ -1797,6 +1800,8 @@ class BuiltInFunction(BaseFunction):
     content = (str(exec_ctx.symbol_table.get('value'))).split()
     return RTResult().success(List(content))
   execute_split.arg_names = ['value']
+
+  
   
   def execute_writeln_ret(self, exec_ctx):
     return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
@@ -1934,6 +1939,8 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(element)
   execute_pop.arg_names = ["list", "index"]
 
+  
+
   def execute_extend(self, exec_ctx):
     listA = exec_ctx.symbol_table.get("listA")
     listB = exec_ctx.symbol_table.get("listB")
@@ -2004,12 +2011,48 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_run.arg_names = ["fn"]
 
+
+  def execute_using(self, exec_ctx):
+    fn = exec_ctx.symbol_table.get("fn")
+
+    if not isinstance(fn, String):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be string",
+        exec_ctx
+      ))
+
+    fn = fn.value
+
+    try:
+      with open(fn, "r") as f:
+        script = f.read()
+    except Exception as e:
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        f"Failed to load script \"{fn}\"\n" + str(e),
+        exec_ctx
+      ))
+
+    _, error = run(fn, script)
+    
+    if error:
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        f"Failed to finish executing script \"{fn}\"\n" +
+        error.as_string(),
+        exec_ctx
+      ))
+
+    return RTResult().success(Number.null)
+  execute_using.arg_names = ["fn"]
+
 import string
 import sys
 String.zang_platform = String(sys.platform)
 String.zang_sysv = String(sys.version)
 List.zang_argv = List(sys.argv)
-String.zang_version = String("0.1")
+String.zang_version = String("0.2")
 String.zang_link = String("https://github/cmspeedrunner/Zang")
 
 
@@ -2024,7 +2067,7 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
-BuiltInFunction.tobin      = BuiltInFunction("tobin")
+BuiltInFunction.using      = BuiltInFunction("using")
 BuiltInFunction.split      = BuiltInFunction("split")
 BuiltInFunction.zang_i      = BuiltInFunction("zang_i")
 BuiltInFunction.put      = BuiltInFunction("put")
@@ -2033,7 +2076,6 @@ BuiltInFunction.opentab      = BuiltInFunction("opentab")
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
-BuiltInFunction.zgui_open   = BuiltInFunction("zgui_open")
 BuiltInFunction.classof   = BuiltInFunction("classof")
 BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
@@ -2132,7 +2174,7 @@ class Interpreter:
     if not value:
       return res.failure(RTError(
         node.pos_start, node.pos_end,
-        f"'{var_name}' is not defined",
+        f"'\u001b[35m\u001b[1m{var_name}\u001b[0m\u001b[31m' is not defined.\n\n\u001b[32m\u001b[1mHelp: You can define \u001b[35m\u001b[1m'{var_name}'\u001b[32m\u001b[1m by using \u001b[34m\u001b[1mlet\u001b[32m\u001b[1m like this:\n\n\u001b[34m\u001b[1mlet \u001b[35m\u001b[1m{var_name}\u001b[34m\u001b[1m \u001b[37m= \u001b[33m\u001b[1mvalue\n\u001b[34m\u001b[1m",
         context
       ))
 
@@ -2377,7 +2419,7 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
-global_symbol_table.set("tobin", BuiltInFunction.tobin)
+global_symbol_table.set("using", BuiltInFunction.using)
 global_symbol_table.set("split", BuiltInFunction.split)
 global_symbol_table.set("zang_i", BuiltInFunction.zang_i)
 global_symbol_table.set("put", BuiltInFunction.put)
@@ -2388,7 +2430,6 @@ global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
 
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
-global_symbol_table.set("zgui_open", BuiltInFunction.zgui_open)
 global_symbol_table.set("classof", BuiltInFunction.classof)
 
 global_symbol_table.set("trim", BuiltInFunction.trim)
@@ -2399,7 +2440,6 @@ global_symbol_table.set("read_int", BuiltInFunction.read_int)
 global_symbol_table.set("clear", BuiltInFunction.clear)
 global_symbol_table.set("cls", BuiltInFunction.clear)
 global_symbol_table.set("is_num", BuiltInFunction.is_number)
-
 global_symbol_table.set("is_str", BuiltInFunction.is_string)
 global_symbol_table.set("is_list", BuiltInFunction.is_list)
 global_symbol_table.set("is_fn", BuiltInFunction.is_function)
