@@ -1,0 +1,8 @@
+using("demos.zang") | This library has a bunch of demos included. All are used down below
+print_to(10)
+print_name("Enter your name: ")
+help()
+fizzbuzz_to(100)
+count_words("This counts words in a string!")
+hello_world()
+add_nums(10,10)
