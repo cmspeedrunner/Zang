@@ -191,7 +191,8 @@ If you go to `examples/include` you will see all the external libraries for zang
 1. `win.zang` - A windows interop library
 2. `bettermath.zang` - A math library to improve the std math library
 3. `zecl.zang` - Zang Expanded Color Library expands the already large inbuilt color library and doesnt require closing tags, it goes from `writeln(col_red+"red"+col_reset` to `writeln(red("red"))`. If you are making a program in zang with alot of color change, i would suggest using `zecl.zang`
-4. `demos.zang` - A library full of zang demos with things like fizzbuzz to a number, counting up, name printing programs and more. 
+4. `demos.zang` - A library full of zang demos with things like fizzbuzz to a number, counting up, name printing programs and more.<br>
+<br>
 These librarys are great to use and for larger apps i would suggest using them
 ### Nil values
 To use Nil values in Zang its as simple as just using `nil` like this:
