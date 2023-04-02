@@ -102,6 +102,7 @@ TT_STRING			= 'STRING'
 TT_IDENTIFIER	= 'IDENTIFIER'
 TT_KEYWORD		= 'KEYWORD'
 TT_PLUS     	= 'PLUS'
+TT_FDIV     	= 'FDIV'
 TT_MINUS    	= 'MINUS'
 TT_MUL      	= 'MUL'
 TT_DIV      	= 'DIV'
@@ -199,6 +200,10 @@ class Lexer:
         tokens.append(self.make_string())
       elif self.current_char == '+':
         tokens.append(Token(TT_PLUS, pos_start=self.pos))
+        self.advance()
+
+      elif self.current_char == '_':
+        tokens.append(Token(TT_FDIV, pos_start=self.pos))
         self.advance()
       elif self.current_char == '-':
         tokens.append(self.make_minus_or_arrow())
@@ -715,7 +720,7 @@ class Parser:
     return self.bin_op(self.term, (TT_PLUS, TT_MINUS))
 
   def term(self):
-    return self.bin_op(self.factor, (TT_MUL, TT_DIV, TT_MOD))
+    return self.bin_op(self.factor, (TT_MUL, TT_DIV, TT_MOD,TT_FDIV))
 
   def factor(self):
     res = ParseResult()
@@ -1335,6 +1340,9 @@ class Value:
 
   def subbed_by(self, other):
     return None, self.illegal_operation(other)
+  
+  def fdiv_by(self, other):
+    return None, self.illegal_operation(other)
 
   def multed_by(self, other):
     return None, self.illegal_operation(other)
@@ -1408,6 +1416,8 @@ class Number(Value):
       return Number(self.value - other.value).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
+    
+  
 
   def multed_by(self, other):
     if isinstance(other, Number):
@@ -1437,6 +1447,19 @@ class Number(Value):
         )
 
       return Number(self.value % other.value).set_context(self.context), None
+    else:
+      return None, Value.illegal_operation(self, other)
+    
+  def fdiv_by(self, other):
+    if isinstance(other, Number):
+      if other.value == 0:
+        return None, RTError(
+          other.pos_start, other.pos_end,
+          'Division by zero',
+          self.context
+        )
+
+      return Number(self.value // other.value).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
     
@@ -1614,6 +1637,18 @@ class List(Value):
       return None, Value.illegal_operation(self, other)
 
   def dived_by(self, other):
+    if isinstance(other, Number):
+      try:
+        return self.elements[other.value], None
+      except:
+        return None, RTError(
+          other.pos_start, other.pos_end,
+          'Element at this index could not be retrieved from list because index is out of bounds',
+          self.context
+        )
+    else:
+      return None, Value.illegal_operation(self, other)
+  def fdiv_by(self, other):
     if isinstance(other, Number):
       try:
         return self.elements[other.value], None
@@ -1831,12 +1866,6 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(String(content))
   execute_classof.arg_names = ['value']
 
-
-  def execute_split(self, exec_ctx):
-    content = (str(exec_ctx.symbol_table.get('value'))).split()
-    return RTResult().success(List(content))
-  execute_split.arg_names = ['value']
-
   
   
   def execute_writeln_ret(self, exec_ctx):
@@ -1873,6 +1902,14 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number(number))
   execute_read_int.arg_names = ['value']
 
+  def execute_split(self, exec_ctx):
+      
+      
+    stringA = exec_ctx.symbol_table.get("stringA")
+    stringB = exec_ctx.symbol_table.get("stringB")
+    s2 = str(stringA).split(str(stringB))
+    return RTResult().success(List(s2))
+  execute_split.arg_names = ["stringA", "stringB"]
 
 
   def execute_clear(self, exec_ctx):
@@ -2256,6 +2293,8 @@ class Interpreter:
 
     elif node.op_tok.type == TT_MINUS:
       result, error = left.subbed_by(right)
+    elif node.op_tok.type == TT_FDIV:
+      result, error = left.fdiv_by(right)
     elif node.op_tok.type == TT_MUL:
       result, error = left.multed_by(right)
     elif node.op_tok.type == TT_DIV:
