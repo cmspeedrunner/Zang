@@ -2065,8 +2065,13 @@ class BuiltInFunction(BaseFunction):
 
     try:
       # Note: Not safe in my opinion
-      with open("./using/libraries/"+fn, "r") as f:
-        script = f.read()
+      interpreter_path = os.path.dirname(os.path.realpath(__file__))
+      if os.path.isfile(interpreter_path+"./using/libraries/"+fn):
+        with open(interpreter_path+"/using/libraries/"+fn, "r") as f:
+            script = f.read()
+      else:
+        with open(fn, "r") as f:
+          script = f.read()
     except Exception as e:
       return RTResult().failure(RTError(
         self.pos_start, self.pos_end,
