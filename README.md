@@ -278,12 +278,12 @@ This would output:
 ```
 You can also split a string into words with the `split` keyword, like this:
 ```javascript
-let string = "Hello World !!!"
-writeln(split(string))
+let string = "Hello/World !!!"
+writeln(split(string, "/" ))
 ```
 This would output:
 ```
-["Hello", "World", "!!!"]
+["Hello", "World !!!"]
 ```
 And last but not least, you can get the length of an array with the `len` keyword, for example:
 ```javascript
