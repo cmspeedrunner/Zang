@@ -208,13 +208,20 @@ let x = 100; let x = tostr(x); writeln(x*3); msg(x*3)
 ```
 
 ### Type conversion
-You can convert a number to a string from an integer or list. This is how:
+You can convert alot of things, for example:
 ```javascript
-let num = read_int("Enter num>")
-let str_num = tostr(num)
-writeln("You typed: "+col_purple+num+col_reset)
+toint("5")
+tofloat("5")
+tofloat(5)
+tostr(tofloat(5))
 ```
-This can be useful for using numbers in strings
+This would output:
+```
+5
+5.o
+5.0
+"5.0"
+```
 
 ### Arrays
 To define an array you just have to type whatever you want within [] like this:
