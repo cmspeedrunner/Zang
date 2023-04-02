@@ -1,0 +1,7 @@
+fn search(query)
+  opentab("https://www.google.com/search?q="+query+"&rlz=1C1CHBF_enGB1042GB1042&oq="+query+"&aqs=chrome.0.0i67i355i433i650j46i67i433i650j0i512j0i131i433i512l2j0i512l5.1741j1j15&sourceid=chrome&ie=UTF-8")
+end
+
+fn url_search(url)
+   opentab(url)
+end
