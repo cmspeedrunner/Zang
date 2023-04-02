@@ -1761,6 +1761,18 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(String(text))
   execute_tostr.arg_names = ['value']
 
+  def execute_toint(self, exec_ctx):
+    text = int(str(exec_ctx.symbol_table.get('value')))
+    
+    return RTResult().success(Number(text))
+  execute_toint.arg_names = ['value']
+
+  def execute_tofloat(self, exec_ctx):
+    text = float(str(exec_ctx.symbol_table.get('value')))
+    
+    return RTResult().success(Number(text))
+  execute_tofloat.arg_names = ['value']
+
 
 
   def execute_writeln(self, exec_ctx):
@@ -2119,6 +2131,8 @@ BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
 BuiltInFunction.classof   = BuiltInFunction("classof")
 BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
+BuiltInFunction.toint   = BuiltInFunction("toint")
+BuiltInFunction.tofloat   = BuiltInFunction("tofloat")
 BuiltInFunction.open   = BuiltInFunction("open")
 
 
@@ -2475,6 +2489,8 @@ global_symbol_table.set("classof", BuiltInFunction.classof)
 
 global_symbol_table.set("trim", BuiltInFunction.trim)
 global_symbol_table.set("tostr", BuiltInFunction.tostr)
+global_symbol_table.set("toint", BuiltInFunction.toint)
+global_symbol_table.set("tofloat", BuiltInFunction.tofloat)
 global_symbol_table.set("open", BuiltInFunction.open)
 global_symbol_table.set("read", BuiltInFunction.read)
 global_symbol_table.set("read_int", BuiltInFunction.read_int)
