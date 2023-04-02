@@ -2064,7 +2064,8 @@ class BuiltInFunction(BaseFunction):
     fn = fn.value
 
     try:
-      with open(fn, "r") as f:
+      # Note: Not safe in my opinion
+      with open("./using/libraries/"+fn, "r") as f:
         script = f.read()
     except Exception as e:
       return RTResult().failure(RTError(
