@@ -2092,7 +2092,7 @@ import sys
 String.zang_platform = String(sys.platform)
 String.zang_sysv = String(sys.version)
 List.zang_argv = List(sys.argv)
-String.zang_version = String("0.2")
+String.zang_version = String("0.25")
 String.zang_link = String("https://github/cmspeedrunner/Zang")
 
 

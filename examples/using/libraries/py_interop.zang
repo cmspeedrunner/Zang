@@ -1,0 +1,4 @@
+fn py_run(file)
+   let file = trim(file)
+   passc("py "+file)
+end

@@ -13,10 +13,10 @@ print("""\033[35m
                                /\u001b[34m$$\033[35m  \ \u001b[34m$$\033[35m
                               |  \u001b[34m$$$$$$\033[35m/
                                \______/ \033[0m 
-  \033[35mZang V/0.2
+  \033[35mZang V/0.25
   ------------------
   DEV: \u001b[32mCm\u001b[35m
-  VERSION: \u001b[32m0.2\u001b[35m
+  VERSION: \u001b[32m0.25\u001b[35m
   GITHUB: \u001b[32mhttps://github.com/cmspeedrunner/zang\u001b[35m
                                          
 """)
