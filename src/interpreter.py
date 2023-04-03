@@ -1805,7 +1805,7 @@ class BuiltInFunction(BaseFunction):
   def execute_tolist(self, exec_ctx):
     text = list(str(exec_ctx.symbol_table.get('value')))
     
-    return RTResult().success(List(text))
+    return RTResult().success(List(list(str(text))))
   execute_tolist.arg_names = ['value']
 
   def execute_tofloat(self, exec_ctx):
