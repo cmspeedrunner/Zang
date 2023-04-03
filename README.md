@@ -365,11 +365,15 @@ IDENTIFIER:tostr, LPAREN, IDENTIFIER:trim, LPAREN, IDENTIFIER:writeln, LPAREN, I
 ### File Library
 As of 0.25 the file library is small. It has 3 functions, `openf`, `using` and `writef`, we looked at `using` already, but in short, `using` takes in a .zang file and imports it so you can use it, like `import` with python. On the other hand `openf` will open, read and close a file and `writef` will open the file (or create it), and write to it, and close it.
 ```javascript
-let filename = read("What file do you want to copy: ")
-let contents = open(filename)
-writef(filename+"_copy", contents)
+let filename = read("What file do you want to print: ")
+let contents_of_file = open(filename)
+writeln(contents_of_file)
 ```
-This program takes in a file, reads the files content, and then writes that content to another file with copy added to the end of the filename.
-I am looking to expand the file library
+This program takes in a file, reads the files content, and then prints that content.
+```javascript
+let filename = read("What file do you want to create: ")
+let contents_to_write = read("What do you want to write into "+filename+": ")
+writef(filename, contents_to_write)
+```
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading and join to our [discord server](https://discord.gg/288gfGxAGr)
