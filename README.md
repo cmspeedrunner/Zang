@@ -13,6 +13,17 @@ To start the shell simply run, in the command line `python shell.py` and thats i
 I would **highly** recommend using the text editor to write your programs, it has syntax highlighting and a built in terminal to do everything you need to do, it is very useful to use and is a great tool to help you write better Zang. This is what a simple fibbonachi sequence and fizzbuzz in Zang's Text editor![image](https://user-images.githubusercontent.com/109184310/227738557-c5648b93-e083-4e75-b630-73edb1e345bd.png)
 ![image](https://user-images.githubusercontent.com/109184310/227738465-a286198a-97b1-47ae-8abf-de42a73b9630.png)
 
+## Showing Speed
+When you run your zang program, it wont, by default display the speed, to enable to display the speed, you have to include `-s` when running, so for example
+```cmd
+C:\Users\User\Desktop\Projects\zang>py src/run.py examples/libtest.zang -s
+Hello, World!
+0
+Zang executed in 0.00
+C:\Users\User\Desktop\Projects\zang>py src/run.py examples/libtest.zang
+Hello, World!
+0
+```
 
 ## Tutorial
 ### Your first Zang Program
