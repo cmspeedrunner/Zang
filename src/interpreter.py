@@ -1802,6 +1802,12 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number(text))
   execute_toint.arg_names = ['value']
 
+  def execute_tolist(self, exec_ctx):
+    text = list(str(exec_ctx.symbol_table.get('value')))
+    
+    return RTResult().success(List(text))
+  execute_tolist.arg_names = ['value']
+
   def execute_tofloat(self, exec_ctx):
     text = float(str(exec_ctx.symbol_table.get('value')))
     
@@ -1816,7 +1822,10 @@ class BuiltInFunction(BaseFunction):
   execute_writeln.arg_names = ['value']
 
 
-
+  def execute_writeln(self, exec_ctx):
+    print(str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(Number.null)
+  execute_writeln.arg_names = ['value']
 
 
   def execute_openf(self, exec_ctx):
@@ -2181,6 +2190,7 @@ BuiltInFunction.classof   = BuiltInFunction("classof")
 BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
 BuiltInFunction.toint   = BuiltInFunction("toint")
+BuiltInFunction.tolist   = BuiltInFunction("tolist")
 BuiltInFunction.tofloat   = BuiltInFunction("tofloat")
 BuiltInFunction.openf   = BuiltInFunction("openf")
 BuiltInFunction.writef   = BuiltInFunction("writef")
@@ -2543,6 +2553,7 @@ global_symbol_table.set("classof", BuiltInFunction.classof)
 global_symbol_table.set("trim", BuiltInFunction.trim)
 global_symbol_table.set("tostr", BuiltInFunction.tostr)
 global_symbol_table.set("toint", BuiltInFunction.toint)
+global_symbol_table.set("tolist", BuiltInFunction.tolist)
 global_symbol_table.set("tofloat", BuiltInFunction.tofloat)
 global_symbol_table.set("openf", BuiltInFunction.openf)
 global_symbol_table.set("writef", BuiltInFunction.writef)
