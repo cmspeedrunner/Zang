@@ -1,4 +1,3 @@
-
 fn purple(string)
    return (col_purple+string+col_reset)
 end
@@ -22,6 +21,3 @@ end
 fn red(string)
    return (col_red+string+col_reset)
 end
-
-
-   

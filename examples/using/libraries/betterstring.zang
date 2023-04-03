@@ -1,0 +1,7 @@
+fn string_mapped(index)
+    let loa = ["a", "b", "c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    return get(loa, index-1)
+end
+
+let zen_of_zang = ("Z - Zero BS."+string_newline+"A - Agile."+string_newline+"N - Non-Verbose."+string_newline+"G - Garbage Free.")
+

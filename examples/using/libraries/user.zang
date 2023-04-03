@@ -1,0 +1,11 @@
+fn username()
+   passc("whoami")
+end
+
+fn userstat()
+   passc("net user")
+end
+
+fn userinfo()
+   passc("systeminfo")
+end

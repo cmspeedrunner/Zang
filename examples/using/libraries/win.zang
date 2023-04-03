@@ -15,10 +15,3 @@ end
 fn win_platform()
    writeln(zang_platform)
 end
-
-
-
-
-
-
-   

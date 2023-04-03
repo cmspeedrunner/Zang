@@ -24,6 +24,3 @@ fn math_countup(num)
    end
    return countulist
 end
-
-
-   

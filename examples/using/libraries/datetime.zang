@@ -1,0 +1,7 @@
+fn date()
+    passc("echo %date%")
+end
+
+fn time()
+   passc("echo %time%")
+end
