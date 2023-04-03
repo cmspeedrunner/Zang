@@ -1819,15 +1819,26 @@ class BuiltInFunction(BaseFunction):
 
 
 
-
-  def execute_open(self, exec_ctx):
+  def execute_openf(self, exec_ctx):
     try:
       with open(str(exec_ctx.symbol_table.get('value'))) as f:
         f = f.read()
       return RTResult().success(String(f))
     except FileNotFoundError as e:
       print("\u001b[31m"+str(e.args)+"\u001b[0m")
-  execute_open.arg_names = ['value']
+  execute_openf.arg_names = ['value']
+
+  def execute_writef(self, exec_ctx):
+    file = exec_ctx.symbol_table.get('value')
+    content = exec_ctx.symbol_table.get('content')
+    try:
+      with open(str(file), "w") as f:
+        f = f.write(str(content))
+      return RTResult().success(String(f))
+    except FileNotFoundError as e:
+      print("\u001b[31m"+str(e.args)+"\u001b[0m")
+  execute_writef.arg_names = ['value', 'content']
+ 
  
  
 
@@ -2118,7 +2129,7 @@ class BuiltInFunction(BaseFunction):
     except Exception as e:
       return RTResult().failure(RTError(
         self.pos_start, self.pos_end,
-        f"Failed to load script \"{fn}\"\n" + str(e),
+        f"Failed to load library \"{fn}\"\n \u001b[32mHelp: make sure the full path to library, \u001b[34m"+fn+"\u001b[32m, is valid.\n\nTry: \u001b[35m\u001b[1musing\u001b[1m\u001b[34m(\u001b[32m\"path/to/"+fn+"\u001b[32m\"\u001b[34m)\u001b[0m\n",
         exec_ctx
       ))
 
@@ -2147,6 +2158,7 @@ String.zang_link = String("https://github/cmspeedrunner/Zang")
 String.string_letters = String(string.ascii_letters)
 String.string_punct = String(string.punctuation)
 String.string_digits = String(string.digits)
+String.string_newline = String("\n")
 String.col_red = String("\u001b[31m")
 String.col_reset = String("\u001b[0m")
 String.col_blue = String("\u001b[34m")
@@ -2170,7 +2182,8 @@ BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
 BuiltInFunction.toint   = BuiltInFunction("toint")
 BuiltInFunction.tofloat   = BuiltInFunction("tofloat")
-BuiltInFunction.open   = BuiltInFunction("open")
+BuiltInFunction.openf   = BuiltInFunction("openf")
+BuiltInFunction.writef   = BuiltInFunction("writef")
 
 
 BuiltInFunction.read       = BuiltInFunction("read")
@@ -2508,6 +2521,7 @@ global_symbol_table.set("col_purple", String.col_purple)
 global_symbol_table.set("col_blue", String.col_blue)
 global_symbol_table.set("col_yellow", String.col_yellow)
 global_symbol_table.set("col_reset", String.col_reset)
+global_symbol_table.set("string_newline", String.string_newline)
 global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
@@ -2530,7 +2544,8 @@ global_symbol_table.set("trim", BuiltInFunction.trim)
 global_symbol_table.set("tostr", BuiltInFunction.tostr)
 global_symbol_table.set("toint", BuiltInFunction.toint)
 global_symbol_table.set("tofloat", BuiltInFunction.tofloat)
-global_symbol_table.set("open", BuiltInFunction.open)
+global_symbol_table.set("openf", BuiltInFunction.openf)
+global_symbol_table.set("writef", BuiltInFunction.writef)
 global_symbol_table.set("read", BuiltInFunction.read)
 global_symbol_table.set("read_int", BuiltInFunction.read_int)
 global_symbol_table.set("clear", BuiltInFunction.clear)
