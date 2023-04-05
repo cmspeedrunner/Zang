@@ -1,0 +1,3 @@
+fn searchyt(query)
+   opentab("https://www.youtube.com/results?search_query="+tostr(query))
+end

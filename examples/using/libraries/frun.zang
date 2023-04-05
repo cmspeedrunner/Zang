@@ -1,0 +1,3 @@
+fn interp(file)
+    return (zang_i(openf(file))) 
+end
