@@ -1756,7 +1756,7 @@ class Function(BaseFunction):
     return copy
 
   def __repr__(self):
-    return f"<function {self.name}>"
+    return f"<gen.function {self.name}>"
 
 class BuiltInFunction(BaseFunction):
   def __init__(self, name):
@@ -2189,7 +2189,7 @@ import sys
 String.zang_platform = String(sys.platform)
 String.zang_sysv = String(sys.version)
 List.zang_argv = List(sys.argv)
-String.zang_version = String("0.25")
+String.zang_version = String("0.45")
 String.zang_link = String("https://github/cmspeedrunner/Zang")
 
 
