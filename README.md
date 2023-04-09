@@ -209,6 +209,7 @@ init()
 ``` 
 Given that you have defined any function in your code, you can call it after using it. Make sure everything in your file is within a function though, otherwise anything in the global scope will run on import.<br>
 If you go to `examples/include` you will see all the external libraries for zang and examples of them being imported and used in the `main.zang` file. Descriptions of these:<br>
+## All libraries
 1. `win.zang` - A windows interop library
 2. `bettermath.zang` - A math library to improve the std math lib.
 3. `zecl.zang` - Zang Expanded Color Library expands the already large inbuilt color library and doesnt require closing tags, it goes from `writeln(col_red+"red"+col_reset` to `writeln(red("red"))`. If you are making a program in zang with alot of color change, i would suggest using `zecl.zang`
