@@ -335,6 +335,14 @@ writeln(math_inf)
 writeln(math_pi)
 ```
 
+In addition to the inbuilts there are 3 functions, `math_cos`, `math_sin` and `math_todeg`, for example:<br>
+```javascript
+let x = math_cos(50)
+let y = math_sin(50)
+let degrees = math_todeg(x+y)
+```
+Because the cosine and sine functions output a radian based result, you can use `todeg()` to convert them back<br>
+
 ### String Library
 There is a small string library that is included that includes punctuation, letters and digits. Here is an example:<br>
 ```javascript
