@@ -112,8 +112,8 @@ end
 ```
 This is a simple command line made in Zang.
 
-### Put?
-There are 2 ways mainly to write to the std output. These would be `writeln` and `put` and theres an important difference between these.<br>
+### Put, Stdout?
+There are 3 ways mainly to write to the std output. These would be `writeln`, `put` and `stdout` and there is an important difference between these.<br>
 `put` will print a value with no newline, meaning that if you did:<br>
 ```javascript
 put("hello")
@@ -134,7 +134,17 @@ It would output
 hello
 world
 ```
-`put` can be useful for various things where you need to output a value with no newline.
+Thats all good but `stdout` is the <b>out</b>lier ;)<br>
+Stdout is essentially the same as `put` output wise but allows you to have acess to the std output stream, giving you more control over the std functions. For example:
+```javascript
+stdout("Hello, ")
+stdout("World!")
+```
+would output
+```
+Hello, World!0
+```
+-Note: 0 is the exit code, for those wondering
 
 ### System Messages
 Adding again to the extensive system library we can do a system message, that looks like this:<br>
