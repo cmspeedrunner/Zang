@@ -1805,9 +1805,9 @@ class BuiltInFunction(BaseFunction):
   def execute_tolist(self, exec_ctx):
     text = list(str(exec_ctx.symbol_table.get('value')))
     
-    return RTResult().success(List(list(str(text))))
+    return RTResult().success(List(text))
   execute_tolist.arg_names = ['value']
-
+  
   def execute_tofloat(self, exec_ctx):
     text = float(str(exec_ctx.symbol_table.get('value')))
     
@@ -1821,11 +1821,47 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
 
+  def execute_writeln(self, exec_ctx):
+    sys.executable(str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(Number.null)
+  execute_writeln.arg_names = ['value']
+
+  def execute_rq_get(self, exec_ctx):
+    import requests as req
+    
+    forget = (str(exec_ctx.symbol_table.get('value')))
+    req.get(forget)
+    return RTResult().success(String(req.get(forget)))
+  execute_rq_get.arg_names = ['value']
+  def execute_rq_html(self, exec_ctx):
+    import requests as req
+
+    url = (str(exec_ctx.symbol_table.get('value')))
+
+    response = req.get(url)
+    payload = response.text
+    return RTResult().success(String(payload))
+  execute_rq_html.arg_names = ['value']
+
+  def execute_rq_post(self, exec_ctx):
+    import requests as req
+    data2 = exec_ctx.symbol_table.get('url')
+    forget = (str(exec_ctx.symbol_table.get('value')))
+    req.post(url=forget, data=data2)
+    return RTResult().success(String(req.get(forget)))
+  execute_rq_post.arg_names = ['value', 'data2']
 
   def execute_writeln(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
+
+  def execute_stdout(self, exec_ctx):
+    sys.stdout.write(str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(Number.null)
+  execute_stdout.arg_names = ['value']
+
+
 
 
   def execute_openf(self, exec_ctx):
@@ -1911,15 +1947,8 @@ class BuiltInFunction(BaseFunction):
   execute_msg.arg_names = ['value']
 
   def execute_read_int(self, exec_ctx):
-    while True:
-      content = str(exec_ctx.symbol_table.get('value'))
-      text = input(content)
-      try:
-        number = int(text)
-        break
-      except ValueError:
-        print(f"'{text}' must be an integer. Try again!")
-    return RTResult().success(Number(number))
+      print("\n\033[31mSorry, DEPRECATED(\033[36m<built-in function read_int>\033[31m) is no longer a function. Instead, you can use \033[36mtoint, tostr, tofloat\033[31m or \033[36mtolist to type convert!\033[0m")
+      exit()
   execute_read_int.arg_names = ['value']
 
   def execute_split(self, exec_ctx):
@@ -2186,6 +2215,10 @@ BuiltInFunction.opentab      = BuiltInFunction("opentab")
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
 BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
+BuiltInFunction.stdout   = BuiltInFunction("stdout")
+BuiltInFunction.rq_get   = BuiltInFunction("rq_get")
+BuiltInFunction.rq_html   = BuiltInFunction("rq_html")
+BuiltInFunction.rq_post   = BuiltInFunction("rq_post")
 BuiltInFunction.classof   = BuiltInFunction("classof")
 BuiltInFunction.trim   = BuiltInFunction("trim")
 BuiltInFunction.tostr   = BuiltInFunction("tostr")
@@ -2548,6 +2581,10 @@ global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
 
 global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
+global_symbol_table.set("stdout", BuiltInFunction.stdout)
+global_symbol_table.set("rq_get", BuiltInFunction.rq_get)
+global_symbol_table.set("rq_html", BuiltInFunction.rq_html)
+global_symbol_table.set("rq_post", BuiltInFunction.rq_post)
 global_symbol_table.set("classof", BuiltInFunction.classof)
 
 global_symbol_table.set("trim", BuiltInFunction.trim)

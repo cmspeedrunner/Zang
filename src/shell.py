@@ -13,7 +13,7 @@ print("""\033[35m
                                /\u001b[34m$$\033[35m  \ \u001b[34m$$\033[35m
                               |  \u001b[34m$$$$$$\033[35m/
                                \______/ \033[0m 
-  \033[35mZang V/0.25
+  \033[35mZang V/0.45
   ------------------
   DEV: \u001b[32mCm\u001b[35m
   VERSION: \u001b[32m0.25\u001b[35m
@@ -22,11 +22,17 @@ print("""\033[35m
 """)
 
 while True:
-    text = input('\033[35mZang>\033[0m')
+    try:
+        text = input('\033[35mZang>\033[0m')
+    except KeyboardInterrupt:
+        print("\n\033[31m^C\033[0m",end="")
+        exit()
     if text.strip() == "":
         continue
 
+    
     result, error = pret.run('<stdin>', text)
+    
 
     if error:
         print("\033[31m" + error.as_string() + "\033[0m")  # Print error message in red text

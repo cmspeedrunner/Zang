@@ -8,7 +8,11 @@ start_time = time.time()  # Start the timer
 
 file = str(sys.argv[1])
 text = "run(\""+file+"\")"
-result, error = pret.run('<stdin>', text)
+try:
+    result, error = pret.run('<stdin>', text)
+except KeyboardInterrupt:
+    print("\n\033[31m^C\033[0m",end="")
+    exit()
 
 if error:
     print("\033[31m" + error.as_string() + "\033[0m")  # Print error message in red text
@@ -22,3 +26,5 @@ if "-s" in sys.argv:
     end_time = time.time()  
     elapsed_time = end_time - start_time 
     print('\033[32m' + f"Zang executed in {elapsed_time:.2f}" + '\033[0m', end="")
+if "-py" in sys.argv:
+    print("W.I.P")
