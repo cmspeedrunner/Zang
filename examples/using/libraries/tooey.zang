@@ -1,0 +1,78 @@
+fn drawsquare(width, height)
+
+    for i = 0 to height then
+        for j = 0 to width then
+            if i == 0 or i == height - 1 or j == 0 or j == width - 1 then
+                put("*")
+        	   else
+                put(" ")
+	    end
+        end
+        writeln("")
+    end
+end
+
+fn drawtriangle(size)
+    for i = 0 to size then
+        for j = 0 to i + 1 then
+            if j == 0 or j == i or i == size - 1 then
+                put("*")
+            else
+                put(" ")
+            end
+        end
+	writeln("")
+    end
+end
+
+fn drawcircle(diameter)
+    let offset_radius = (diameter / 2) - 0.5
+    for i = 0 to diameter then
+        for j = 0 to diameter then
+            let x = i - offset_radius
+            let y = j - offset_radius
+            if x * x + y * y <= offset_radius * offset_radius + 1 then
+                put("*")
+            else
+                put(" ")
+            end 
+        end 
+        writeln("")
+    end 
+end 
+
+fn drawcrescent(diameter)
+    let offset_radius = (diameter / 2) - 0.5
+    for i = 0 to diameter then
+        for j = 0 to diameter then
+            let x = i - offset_radius
+            let y = j - offset_radius
+            if x * x + y * y <= offset_radius * offset_radius + 1 then
+                put("*")
+            else
+                put("   ")
+            end 
+        end 
+        writeln("")
+    end 
+end 
+
+fn drawcap(height, width)
+    for y = 0 to height then
+        for x = 0 to width then
+
+        let dx = (x - width / 2) / (width / 2.2)
+        let dy = (y - height / 2) / (height / 2)
+        let equation = dx ^ 2 + dy ^ 2 - 1
+        if equation ^ 3 - dx ^ 2 * dy ^ 3 <= 0 then
+            put("*")
+        else
+            put(" ")
+        end
+    end
+    writeln("")
+end
+end
+
+
+
