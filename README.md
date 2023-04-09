@@ -413,7 +413,7 @@ This program will send a post request for `elem` (not defined) then get google.c
 More request-based stuff soon!
 
 ## Czang
-As of the latest version you can compile your zang code to machine code with czang. There is one caveat to this, czang code is different to vanilla zang, let me show you some examples<br>
+As of the latest version you can compile your zang code to machine code with czang. There is one caveat to this, czang code is different to vanilla zang, let me show you some comparisons<sbr>
 #### Vanilla Zang:
 ```javascript
 fn test()
