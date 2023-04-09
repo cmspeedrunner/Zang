@@ -25,6 +25,7 @@ Hello, World!
 0
 ```
 
+
 ## Tutorial
 ### Your first Zang Program
 Your first Zang program will be a simple hello world program, all it does is output hello world to the console. To output any value to the std.output you would do `writeln` to write a line and then your value between the corresponding brackets, so a simple hello world program would look like this:<br>
@@ -410,5 +411,107 @@ rq_html("https://google.com")
 ```
 This program will send a post request for `elem` (not defined) then get google.com, and then get the raw, source html for google.com with `rq_html`<br>
 More request-based stuff soon!
+
+## Czang
+As of the latest version you can compile your zang code to machine code with czang. There is one caveat to this, czang code is different to vanilla zang, let me show you some examples<br>
+#### Vanilla Zang:
+```javascript
+fn test()
+   let msg = "Hello, World!"
+   writeln(msg)
+end
+```
+#### Czang:
+```javascript
+fn test(): None
+   let msg = "Hello, World!"
+   writeln msg
+end
+```
+So the main difference is that czang does not use parenthesis and also requires a return type when defining a function. Theres a couple more differences, for example:
+#### Vanilla Zang:
+```javascript
+let name = read("Whats your name?")
+writeln("Hello, "+name)
+```
+#### Czang:
+```javascript
+writeln "Whats your name?"
+let name = read_str
+writeln "Hello, "
+writeln name
+```
+Here, the difference is that because czang gets compiled to raw c code (Will talk more about that) it has some things to note:<br>
+1. Newlines are not added to the end of lines, so if you want to print something with a newline you have to add it yourself, the writeln function in czang is the put function in vanilla zang, think about it that way
+2. read_str and read_int are the ways of getting input, unlike in vanilla zang, you have to specify the type of input your getting.
+3. You cannot do stringvar + stringvar2, concat fetures are not supported by zangc.
+4. Zangc only supports functions, variable allocation, loops, printing, input, inbuilt.
+<br>
+Here are some more examples<br>
+
+#### Vanilla Zang:
+```javascript
+let x = read()
+if x+10 == 20 then
+   writeln("You entered 10!")
+   writeln(x)
+end
+
+elif x+10 != 20 then
+    writeln("You did not enter 10!")
+    writeln(x)
+end
+```
+#### Zangc
+```javascript
+let x = read_int
+if x+10 == 20
+   writeln "You entered 10!\n"
+   writeln "%d", x
+end
+elif x+10 != 20
+    writeln "You did not enter 10!"
+    writeln "%d", x
+end
+```
+Some of the differences you will see here are:<br>
+1. There is no "then" identifyer in the loops, it just does it automatically.
+2. When printing any number value you have to add: `"%d",` to the start before you print your number. This goes for variables aswell, this is just a formatter.
+
+### How to compile a czang file
+To compile a czang file, first make sure you have the [gcc compiler](https://gcc.gnu.org/) on your path and thats it. Then run the normal zang run.py file but include `-c` to compile it. If you want to see the translated c code just include `-code` aswell. Heres an example:
+```powershell
+C:\Users\User\Desktop\Projects\zang>py src/run.py examples/helloworld.zang
+Hello, World
+0
+```
+That is how you would normally run a zang file, this is how you would compile a czang file:
+```powershell
+C:\Users\User\Desktop\Projects\zang>py src/run.py czang/main.czang -c
+czang/main.czang compiled in 0.125s
+
+C:\Users\User\Desktop\Projects\zang>czang/main.exe
+Hello, World!
+C:\Users\User\Desktop\Projects\zang>
+```
+This is how you compile and run a czang file.<br>
+If you want to display the c code it got translated to, include `-code`, for example
+```powershell
+C:\Users\User\Desktop\Projects\zang>py src/run.py czang/main.czang -c -code
+<<-- czang/main.c -->>
+#include <stdio.h>
+#define math_pi "%f", 3.14159
+#define zang_argv "%s", "['src/run.py', 'czang/main.czang', '-c', '-code']"
+#define zang_vers "%s", "V/0.45\n"
+#define zang_platform "%s", "win32\n"
+#define zang_link "%s", "https://github.com/cmspeedrunner/zang\n"
+struct None {};
+typedef struct None None;int main(){
+printf( "Hello, World!" );
+return 0;}
+czang/main.czang compiled in 0.106s
+C:\Users\User\Desktop\Projects\zang>
+```
+And thats it, czang doesnt support too much standard zang functions as of now, i dont plan to make this better anytime soon, but its just a cool offshoot.<br>
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading and join to our [discord server](https://discord.gg/288gfGxAGr)
