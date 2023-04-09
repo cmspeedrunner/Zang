@@ -215,7 +215,13 @@ If you go to `examples/include` you will see all the external libraries for zang
 4. `demos.zang` - A library full of zang demos with things like fizzbuzz to a number, counting up, name printing programs and more.
 5. `c_interop.zang` - A library that allows you to run c code, by calling `compile(yourprogram.c)`.
 6. `py_interop.zang` - A library that allows you to run python code through zang
-7. `zangorithims.zang` - A library full of mathmatical algorithims, makes use of the `bettermath` library.<br>
+7. `tooey.zang` - A library full of drawing with ascii to make a nice TUI, it includes circles, squares, triangles, caps, ovals and crescent shapes.
+8. `yt.zang` - A library for searching on youtube. Will do just that, search for a video on youtube and then open that url.
+9. `googlesearch.zang` - A library with the abillity to search on google.
+10. `user.zang` - A library with low level info about the user, acessed through the passc keyword.
+11. `frun.zang` - A library that allows you to run a file through the zang interpreter with the `zang_i` keyword.
+12. `betterstring.zang` - A library with better string utillity, reccomended for bigger projects.
+13. `datetime.zang` - A library with the date and the time, if you couldnt guess it. Accurate to the systems time and date to the dot.
 <br>
 If you make any Zang library please! Add it to the `examples/include/libraries` and edit the `main.zang` to include it, i would love for some community libraries<br>
 
@@ -373,7 +379,7 @@ IDENTIFIER:tostr, LPAREN, IDENTIFIER:trim, LPAREN, IDENTIFIER:writeln, LPAREN, I
 
 
 ### File Library
-As of 0.25 the file library is small. It has 3 functions, `openf`, `using` and `writef`, we looked at `using` already, but in short, `using` takes in a .zang file and imports it so you can use it, like `import` with python. On the other hand `openf` will open, read and close a file and `writef` will open the file (or create it), and write to it, and close it.
+As of the latest update the file library is small. It has 3 functions, `openf`, `using` and `writef`, we looked at `using` already, but in short, `using` takes in a .zang file and imports it so you can use it, like `import` with python. On the other hand `openf` will open, read and close a file and `writef` will open the file (or create it), and write to it, and close it.
 ```javascript
 let filename = read("What file do you want to print: ")
 let contents_of_file = open(filename)
@@ -385,5 +391,15 @@ let filename = read("What file do you want to create: ")
 let contents_to_write = read("What do you want to write into "+filename+": ")
 writef(filename, contents_to_write)
 ```
+
+### Requests Library
+As of the latest update the `rq` library is a little light, containing `POST`, `GET` and `HTML` For example:<br>
+```javascript
+rq_post("https://google.com", "elem")
+rq_get("https://google.com")
+rq_html("https://google.com")
+```
+This program will send a post request for `elem` (not defined) then get google.com, and then get the raw, source html for google.com with `rq_html`<br>
+More request-based stuff soon!
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading and join to our [discord server](https://discord.gg/288gfGxAGr)
