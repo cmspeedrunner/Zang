@@ -1821,10 +1821,21 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
 
-  def execute_writeln(self, exec_ctx):
-    sys.executable(str(exec_ctx.symbol_table.get('value')))
-    return RTResult().success(Number.null)
-  execute_writeln.arg_names = ['value']
+
+  def execute_math_cos(self, exec_ctx):
+    math.cos(int(str(exec_ctx.symbol_table.get('value'))))
+    return RTResult().success(Number(math.cos(int(str(exec_ctx.symbol_table.get('value'))))))
+  execute_math_cos.arg_names = ['value']
+
+  def execute_math_todeg(self, exec_ctx):
+    math.degrees(float(str(exec_ctx.symbol_table.get('value'))))
+    return RTResult().success(Number(math.degrees(float(str(exec_ctx.symbol_table.get('value'))))))
+  execute_math_todeg.arg_names = ['value']
+
+  def execute_math_sin(self, exec_ctx):
+    math.sin(int(str(exec_ctx.symbol_table.get('value'))))
+    return RTResult().success(Number(math.sin(int(str(exec_ctx.symbol_table.get('value'))))))
+  execute_math_sin.arg_names = ['value']
 
   def execute_rq_get(self, exec_ctx):
     import requests as req
@@ -1835,9 +1846,7 @@ class BuiltInFunction(BaseFunction):
   execute_rq_get.arg_names = ['value']
   def execute_rq_html(self, exec_ctx):
     import requests as req
-
     url = (str(exec_ctx.symbol_table.get('value')))
-
     response = req.get(url)
     payload = response.text
     return RTResult().success(String(payload))
@@ -1923,10 +1932,6 @@ class BuiltInFunction(BaseFunction):
   execute_classof.arg_names = ['value']
 
   
-  
-  def execute_writeln_ret(self, exec_ctx):
-    return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
-  execute_writeln_ret.arg_names = ['value']
   
   def execute_read(self, exec_ctx):
     content = str(exec_ctx.symbol_table.get('value'))
@@ -2214,8 +2219,10 @@ BuiltInFunction.opentab      = BuiltInFunction("opentab")
 
 BuiltInFunction.passc      = BuiltInFunction("passc")
 BuiltInFunction.msg      = BuiltInFunction("msg")
-BuiltInFunction.writeln_ret   = BuiltInFunction("writeln_ret")
+BuiltInFunction.math_cos   = BuiltInFunction("math_cos")
+BuiltInFunction.math_sin   = BuiltInFunction("math_sin")
 BuiltInFunction.stdout   = BuiltInFunction("stdout")
+BuiltInFunction.math_todeg   = BuiltInFunction("math_todeg")
 BuiltInFunction.rq_get   = BuiltInFunction("rq_get")
 BuiltInFunction.rq_html   = BuiltInFunction("rq_html")
 BuiltInFunction.rq_post   = BuiltInFunction("rq_post")
@@ -2580,8 +2587,10 @@ global_symbol_table.set("opentab", BuiltInFunction.opentab)
 global_symbol_table.set("passc", BuiltInFunction.passc)
 global_symbol_table.set("msg", BuiltInFunction.msg)
 
-global_symbol_table.set("writeln_ret", BuiltInFunction.writeln_ret)
+global_symbol_table.set("math_cos", BuiltInFunction.math_cos)
+global_symbol_table.set("math_sin", BuiltInFunction.math_sin)
 global_symbol_table.set("stdout", BuiltInFunction.stdout)
+global_symbol_table.set("math_todeg", BuiltInFunction.math_todeg)
 global_symbol_table.set("rq_get", BuiltInFunction.rq_get)
 global_symbol_table.set("rq_html", BuiltInFunction.rq_html)
 global_symbol_table.set("rq_post", BuiltInFunction.rq_post)
