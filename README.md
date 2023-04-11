@@ -513,5 +513,9 @@ czang/main.czang compiled in 0.106s
 C:\Users\User\Desktop\Projects\zang>
 ```
 And thats it, czang doesnt support too much standard zang functions as of now, i dont plan to make this better anytime soon, but its just a cool offshoot.<br>
+   
+## MacOS 11.1+ Executable Support
+MacOS users running OSX version 11 (BigSur) or newer have the option to use an executable located in `/src/osx_dist/` to run zang programs. To use, put the executable in the same directory as your program and run it using `./zang your_program.zang`<br>
+
 ## Thats All Folks!
 Thats all to see here, Zang is just a little intermediate language for until i create my own compiled language, which will be much better. Thank you for reading and join to our [discord server](https://discord.gg/288gfGxAGr)
