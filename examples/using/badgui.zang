@@ -1,5 +1,0 @@
-fn badgui_open(title)
-   writef("temppy.py", "import tkinter as tk; root = tk.Tk(); root.title('"+tostr(title)+"'); root.mainloop()")
-   passc("py temppy.py")
-   passc("del temppy.py")
-end
