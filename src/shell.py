@@ -16,7 +16,7 @@ print("""\033[35m
   \033[35mZang V/0.45
   ------------------
   DEV: \u001b[32mCm\u001b[35m
-  VERSION: \u001b[32m0.25\u001b[35m
+  VERSION: \u001b[32m0.45\u001b[35m
   GITHUB: \u001b[32mhttps://github.com/cmspeedrunner/zang\u001b[35m
                                          
 """)
