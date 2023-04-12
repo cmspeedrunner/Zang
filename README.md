@@ -390,6 +390,12 @@ This is a very interesting function that tokenises whatever you pass into it. So
 IDENTIFIER:tostr, LPAREN, IDENTIFIER:trim, LPAREN, IDENTIFIER:writeln, LPAREN, INT:5, PLUS, INT:5, RPAREN, RPAREN, RPAREN, EOF
 ```
 
+#### zang_eval
+zang_eval is ofcourse part of the system library but actually runs zang code you pass into it, unlike zang_i, what you pass into it does not have to be a string and in addition, zang eval doesnt just output the tokenised text, it actually runs it, for example:
+```javascript
+zang_eval(writeln("Hello world!"))
+```
+
 
 ### File Library
 As of the latest update the file library is small. It has 3 functions, `openf`, `using` and `writef`, we looked at `using` already, but in short, `using` takes in a .zang file and imports it so you can use it, like `import` with python. On the other hand `openf` will open, read and close a file and `writef` will open the file (or create it), and write to it, and close it.
