@@ -5,6 +5,8 @@ Zang is a dynamically typed high level programming language.<br>![image](https:/
 Zang's Mascot, Sid
 
 
+## Official Website
+To see the official zang website [click on this!](https://zanglanguage.wordpress.com/)
 ## Running a script
 To run a script must go into the command prompt and make sure your working directory has your script you want to run and the run.py file and the intepreter.py file. Then run. `python run.py yourfile.zang` and it will run
 ## Starting the shell
