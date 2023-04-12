@@ -224,6 +224,7 @@ If you go to `examples/include` you will see all the external libraries for zang
 11. `frun.zang` - A library that allows you to run a file through the zang interpreter with the `zang_i` keyword.
 12. `betterstring.zang` - A library with better string utillity, reccomended for bigger projects.
 13. `datetime.zang` - A library with the date and the time, if you couldnt guess it. Accurate to the systems time and date to the dot.
+14. `badgui.zang` - A mini-bad graphics library that can ONLY open a window with a title, you should ideally use the inbuilt zang gui library, not badgui, but its fun to mess about in.
 <br>
 If you make any Zang library please! Add it to the `examples/include/libraries` and edit the `main.zang` to include it, i would love for some community libraries<br>
 
