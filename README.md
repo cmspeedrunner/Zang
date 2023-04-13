@@ -335,7 +335,12 @@ let y = math_sin(50)
 let degrees = math_todeg(x+y)
 ```
 Because the cosine and sine functions output a radian based result, you can use `todeg()` to convert them back<br>
-
+### Gui Library
+The gui library is small to to open a window with the specified size you would do:
+```javascript
+zgui_open("Title", 200, 200)
+```
+The library will be expanded, you can also use the `badgui` library which was actually made in zang, you can get it by going to `examples/using/libraries`, (btw, every single library ever made with and in zang is avalible in that directory on this page, its like a package index, to see how to use and import it [go here](https://github.com/cmspeedrunner/Zang#importing-a-file))
 ### String Library
 There is a small string library that is included that includes punctuation, letters and digits. Here is an example:<br>
 ```javascript
