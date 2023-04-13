@@ -2,7 +2,7 @@
 # Zang
 Zang is a dynamically typed high level programming language.<br>![image](https://user-images.githubusercontent.com/109184310/227681329-6b8cb38f-d7ec-4504-a349-d0faf247faae.png)
 <<
-Zang's Mascot, Sid\f
+Zang's Mascot, Sid
 
 
 ## Official Website
