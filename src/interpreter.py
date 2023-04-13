@@ -365,9 +365,8 @@ class Lexer:
 
   def skip_comment(self):
     self.advance()
-
     while self.current_char != '\n':
-      self.advance()
+        self.advance()
 
     self.advance()
 
@@ -580,7 +579,7 @@ class Parser:
     if not res.error and self.current_tok.type != TT_EOF:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Token cannot appear after previous tokens"
+        "Token cannot appear after previous tokens\n\u001b[32m\nHelp: Maybe you forgot a \u001b[34mlet\u001b[32m statement?\n\u001b[31m"
       ))
     return res
 
@@ -1814,13 +1813,34 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number(text))
   execute_tofloat.arg_names = ['value']
 
-
+  def execute_put(self, exec_ctx):
+    print(str(exec_ctx.symbol_table.get('value')),end="")
+    return RTResult().success(Number.null)
+  execute_put.arg_names = ['value']
 
   def execute_writeln(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
 
+  def execute_zgui_open(self, exec_ctx):
+    import tkinter as tk
+    title = exec_ctx.symbol_table.get("title")
+    size1 = exec_ctx.symbol_table.get("size1")
+    size2 = exec_ctx.symbol_table.get("size2")
+
+    root = tk.Tk()
+    root.title(str(title))
+    root.geometry(f"{size1}x{size2}")
+
+    tk.mainloop()
+    return RTResult().success(String(root))
+  execute_zgui_open.arg_names = ['title','size1', 'size2',]
+  
+  def execute_zang_eval(self, exec_ctx):
+    run(0, str(exec_ctx.symbol_table.get('value')))
+    return RTResult().success(String(run(0, str(exec_ctx.symbol_table.get('value')))[0]))
+  execute_zang_eval.arg_names = ['value']
 
   def execute_math_cos(self, exec_ctx):
     math.cos(int(str(exec_ctx.symbol_table.get('value'))))
@@ -1860,15 +1880,6 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(String(req.get(forget)))
   execute_rq_post.arg_names = ['value', 'data2']
 
-  def execute_writeln(self, exec_ctx):
-    print(str(exec_ctx.symbol_table.get('value')))
-    return RTResult().success(Number.null)
-  execute_writeln.arg_names = ['value']
-
-  def execute_stdout(self, exec_ctx):
-    sys.stdout.write(str(exec_ctx.symbol_table.get('value')))
-    return RTResult().success(Number.null)
-  execute_stdout.arg_names = ['value']
 
 
 
@@ -1897,10 +1908,7 @@ class BuiltInFunction(BaseFunction):
  
 
 
-  def execute_put(self, exec_ctx):
-    print(str(exec_ctx.symbol_table.get('value')),end="")
-    return RTResult().success(Number.null)
-  execute_put.arg_names = ['value']
+  
   
   def execute_opentab(self, exec_ctx):
     webbrowser.open_new_tab(str(exec_ctx.symbol_table.get('value')))
@@ -2210,6 +2218,8 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
+BuiltInFunction.zgui_open      = BuiltInFunction("zgui_open")
+BuiltInFunction.zang_eval      = BuiltInFunction("zang_eval")
 BuiltInFunction.using      = BuiltInFunction("using")
 BuiltInFunction.split      = BuiltInFunction("split")
 BuiltInFunction.find      = BuiltInFunction("find")
@@ -2576,6 +2586,8 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
+global_symbol_table.set("zgui_open", BuiltInFunction.zgui_open)
+global_symbol_table.set("zang_eval", BuiltInFunction.zang_eval)
 global_symbol_table.set("using", BuiltInFunction.using)
 global_symbol_table.set("split", BuiltInFunction.split)
 global_symbol_table.set("find", BuiltInFunction.find)
