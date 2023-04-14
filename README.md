@@ -242,7 +242,7 @@ tostr(tofloat(5))
 This would output:
 ```
 5
-5.o
+5.0
 5.0
 "5.0"
 ```
