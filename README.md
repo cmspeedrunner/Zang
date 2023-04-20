@@ -25,14 +25,14 @@ Zang executed in 0.00
 C:\Users\User\Desktop\Projects\zang>py src/run.py examples/libtest.zang
 Hello, World!
 0
-```cmd
-C:\Users\User\Desktop\Projects\zang>py zpm/zpm.py library.zang
 ```
-And it will download the library to your directory so that you can include it in your project.
 
 ## Using ZPM
 ZPM is the Zang Package Manager and is how you can download any standard zang library from your command line. To use it, type in:
 ```powershell
+C:\Users\User\Desktop\Projects\zang>py zpm/zpm.py library.zang
+```
+And it will download the library to your directory so that you can include it in your project.
 
 ## Tutorial
 ### Your first Zang Program
