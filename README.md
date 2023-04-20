@@ -32,7 +32,8 @@ ZPM is the Zang Package Manager and is how you can download any standard zang li
 ```powershell
 C:\Users\User\Desktop\Projects\zang>py zpm/zpm.py library.zang
 ```
-And it will download the library to your directory so that you can include it in your project.
+This will download the library to your working directory.<br>
+ZPM can only download the libraries in `examples/using/libraries` dir which are the official libraries, if you want to make a zang library, just upload it to the `examples/using/libraries` dir!
 
 ## Tutorial
 ### Your first Zang Program
