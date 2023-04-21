@@ -1,4 +1,5 @@
 import interpreter as pret
+import readline
 import os
 os.system("")
 print("""\033[35m
