@@ -22,9 +22,12 @@ print("""\033[35m
                                          
 """)
 
+history = []
+
 while True:
     try:
         text = input('\033[35mZang>\033[0m')
+        history.append(text)  # Add input to history list
     except KeyboardInterrupt:
         print("\n\033[31m^C\033[0m",end="")
         exit()
@@ -42,4 +45,4 @@ while True:
             print(repr(result.elements[0]))
         else:
             print(repr(result))
-        
+
