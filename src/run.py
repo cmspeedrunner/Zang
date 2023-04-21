@@ -5,6 +5,8 @@ import os
 os.system("")
 start_time = time.time()  # Start the timer
 
+if not len(sys.argv)-1:
+    exit("\033[31mplease supply a file to run\033[m")
 
 file = str(sys.argv[1])
 if "-c" in sys.argv:
