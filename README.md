@@ -11,6 +11,10 @@ To see the official zang website [click on this!](https://zanglanguage.wordpress
 To run a script must go into the command prompt and make sure your working directory has your script you want to run and the run.py file and the intepreter.py file. Then run. `python run.py yourfile.zang` and it will run
 ## Starting the shell
 To start the shell simply run, in the command line `python shell.py` and thats it
+### Accesing Shell history
+You can acess the shell history by typing in `ac.history` Like so:
+![image](https://user-images.githubusercontent.com/109184310/233773214-ebb43ef1-da0d-4a32-8d11-01c6cc414910.png)
+
 ## Text Editor
 I would **highly** recommend using the text editor to write your programs, it has syntax highlighting and a built in terminal to do everything you need to do, it is very useful to use and is a great tool to help you write better Zang. This is what a simple fibbonachi sequence and fizzbuzz in Zang's Text editor![image](https://user-images.githubusercontent.com/109184310/227738557-c5648b93-e083-4e75-b630-73edb1e345bd.png)
 ![image](https://user-images.githubusercontent.com/109184310/227738465-a286198a-97b1-47ae-8abf-de42a73b9630.png)
