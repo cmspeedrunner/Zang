@@ -1,4 +1,4 @@
-| Little echo program, not too hard
+# Little echo program, not too hard
 while True then
     let echo = read("Echo>")
     writeln(col_purple+echo+col_reset)
