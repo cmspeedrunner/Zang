@@ -1,5 +1,6 @@
 import interpreter as pret
 import os
+import readline
 os.system("")
 print("""\033[35m
  /\u001b[34m$$$$$$$$\033[35m                              
