@@ -199,10 +199,11 @@ This would output:
 Functions can also return values
 
 ### Comments
-To do comments it is a pipe char, (|) for example:
+To do comments you would use a hashtag (#) for example:
 ```python
-writeln("hello") | Comment right here!
-put("Bye!") | Another comment!
+writeln("hello") # Comment right here!
+put("Bye!") # Another comment!
+
 ```
 -Note: It is important to know that there has to be a newline under the comment, otherewise the interpreter cannot look for a "\n" to stop parsing the comment. Sorry, i know this is bad but it would be better then a grouping based comment system.
 ### Importing a file
