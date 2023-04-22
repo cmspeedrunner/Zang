@@ -44,7 +44,6 @@ while True:
     if text.strip() == "":
         continue
     
-    print(text)
     result, error = pret.run('<stdin>', text)
     
     if error:
