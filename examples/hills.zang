@@ -1,0 +1,7 @@
+for i = 0 to 100 then
+    writeln(i ^ i)
+    for j = 0 to 100 then
+        writeln(j ^ i) 
+    # This will print a bunch of ascii hills with random nums in them!
+    end
+end
