@@ -1,2 +1,2 @@
-let file = open("src/shell.py")
+let file = openf("src/shell.py")
 writeln(file)
