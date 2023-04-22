@@ -1,1 +1,1 @@
-opentab("https://google.com") | Opens a google tab, can be swapped out for any url to open it on command
+opentab("https://google.com") # Opens a google tab, can be swapped out for any url to open it on command
