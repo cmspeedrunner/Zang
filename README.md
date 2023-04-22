@@ -12,7 +12,8 @@ To run a script must go into the command prompt and make sure your working direc
 ## Starting the shell
 To start the shell simply run, in the command line `python shell.py` and thats it
 ### Accesing Shell history
-You can acess the shell history by typing in `ac.history` Like so:
+You can acess the shell history by typing in `ac.history` Like so:<br>
+<br>
 ![image](https://user-images.githubusercontent.com/109184310/233773214-ebb43ef1-da0d-4a32-8d11-01c6cc414910.png)
 
 ## Text Editor
