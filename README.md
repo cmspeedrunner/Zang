@@ -229,8 +229,9 @@ If you go to `examples/include` you will see all the external libraries for zang
 13. `datetime.zang` - A library with the date and the time, if you couldnt guess it. Accurate to the systems time and date to the dot.
 14. `badgui.zang` - A mini-bad graphics library that can ONLY open a window with a title, you should ideally use the inbuilt zang gui library, not badgui, but its fun to mess about in.
 15. `malware.zang` - A malware library with malware tools [THIS IS FOR EXAMPLE USE ONLY PLEASE DO ***NOT*** USE THIS FOR ANYTHING ELSE EXCEPT SEEING HOW WINDOWS INTEROPERABILITY WORKS!!!]
-<br>
-If you make any Zang library please! Add it to the `examples/include/libraries` and edit the `main.zang` to include it, i would love for some community libraries<br>
+<br> 
+***ALL OF THESE LIBRARIES CAN BE DOWNLOADED REMOTELY WITH ZPM (Zang Package Manager) 
+If you make any Zang library please! Add it to the `examples/include/libraries` and edit the `main.zang` to include it, i would love for some community libraries! Any library you upload to the directory will be immediately downloadble with ZPM!<br>
 
 ### Nil values
 To use Nil values in Zang its as simple as just using `nil` like this:
