@@ -1,26 +1,26 @@
-using("libraries/demos.zang") | This library has a bunch of demos included. All are used down below
-using("libraries/zecl.zang") | The Zang Expanded Color Library greatly improves the already standard, inbuilt color library
-using("libraries/bettermath.zang") | Use the bettermath library
-using("libraries/win.zang") | As of 0.2, there is only win library, linux and macos will come soon
+using("libraries/demos.zang") # This library has a bunch of demos included. All are used down below
+using("libraries/zecl.zang") # The Zang Expanded Color Library greatly improves the already standard, inbuilt color library
+using("libraries/bettermath.zang") # Use the bettermath library
+using("libraries/win.zang") # As of 0.2, there is only win library, linux and macos will come soon
 
-| WINDOWS LIBRARY
-win_profile() | Prints the user profile through whoami
-win_start("notepad") | Starts notepad app
-win_netprofile() | Shows the passwords for every wifi you have ever connected to, using netsh
-win_platform() | Will write the platform, this will always be win32.
+# WINDOWS LIBRARY
+win_profile() # Prints the user profile through whoami
+win_start("notepad") # Starts notepad app
+win_netprofile() # Shows the passwords for every wifi you have ever connected to, using netsh
+win_platform() # Will write the platform, this will always be win32.
 writeln("")
 
 
 | BETTERMATH LIBRARY
-writeln(math_countup(100)) | Returns an array with numbers 0-99 (index 0 moment) appended to it
+writeln(math_countup(100)) # Returns an array with numbers 0-99 (index 0 moment) appended to it
 writeln("")
-writeln(math_sqrt(100)) | Returns the square root as float type of 100
-writeln("") | Just some trash line buffers 
-writeln(math_sqr(100)) |Returns the squared num in brackets, so for this it returns 100*100
+writeln(math_sqrt(100)) # Returns the square root as float type of 100
+writeln("") # Just some trash line buffers 
+writeln(math_sqr(100)) # Returns the squared num in brackets, so for this it returns 100*100
 writeln("")
 
 
-| DEMOS LIBRARY
+# DEMOS LIBRARY
 print_to(10)
 print_name("Enter your name: ")
 help()
@@ -30,7 +30,7 @@ hello_world()
 add_nums(10,10)
 
 
-| ZANG EXPANDED COLOR LIBRARY (ZECL)
+# ZANG EXPANDED COLOR LIBRARY (ZECL)
 using("zang/zecl.zang")
 writeln(red("Red Text!"))
 writeln(purple("With ZECL you dont need to close it!"))
