@@ -29,7 +29,7 @@ history = []
 
 while True:
     try:
-        text = input('\033[35mZang> \033[m')
+        text = input('\033[35mZang>\033[m')
         
         if text == 'ac.history':
             for idx, com in enumerate(history):
