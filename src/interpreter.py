@@ -1817,6 +1817,9 @@ class BuiltInFunction(BaseFunction):
     print(str(exec_ctx.symbol_table.get('value')),end="")
     return RTResult().success(Number.null)
   execute_put.arg_names = ['value']
+  def execute_tobin(self, exec_ctx):
+    return RTResult().success(String(bin(int(str(exec_ctx.symbol_table.get('value'))))))
+  execute_tobin.arg_names = ['value']
 
   def execute_writeln(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
@@ -2225,6 +2228,7 @@ BuiltInFunction.split      = BuiltInFunction("split")
 BuiltInFunction.find      = BuiltInFunction("find")
 BuiltInFunction.zang_i      = BuiltInFunction("zang_i")
 BuiltInFunction.put      = BuiltInFunction("put")
+BuiltInFunction.tobin      = BuiltInFunction("tobin")
 BuiltInFunction.opentab      = BuiltInFunction("opentab")
 
 BuiltInFunction.passc      = BuiltInFunction("passc")
@@ -2593,6 +2597,7 @@ global_symbol_table.set("split", BuiltInFunction.split)
 global_symbol_table.set("find", BuiltInFunction.find)
 global_symbol_table.set("zang_i", BuiltInFunction.zang_i)
 global_symbol_table.set("put", BuiltInFunction.put)
+global_symbol_table.set("tobin", BuiltInFunction.tobin)
 
 global_symbol_table.set("opentab", BuiltInFunction.opentab)
 
