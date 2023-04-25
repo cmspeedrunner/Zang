@@ -1,26 +1,43 @@
 import sys
 import os
-import shutil
+import http.client as http
+import json
 
-lib = sys.argv[1]
+os.system("")
+
+library = sys.argv[1]
 current_dir = os.getcwd()
 
-# Specify the directory name to check
-dir_name = "libsrc"
+HTTP_URL = "api.github.com"
+HTTP_DOWNLOAD_URL = "raw.githubusercontent.com"
+HTTP_HEADERS = {
+    "Accept": "application/vnd.github+json",
+    "User-Agent": "zpm-app"
+}
+HTTP_DOWNLOAD_HEADERS = {
+  "User-Agent": "zpm-app"
+}
+LIBRARIES_PATH = "/repos/cmspeedrunner/Zang/contents/examples/using/libraries"
 
-# Create the path to the directory by joining the current directory and the directory name
-dir_path = os.path.join(current_dir, dir_name)
-if os.path.exists(dir_path) and os.path.isdir(dir_path):
-  try:
-    shutil.copy("libsrc/examples/using/libraries/"+str(lib), str(os.getcwd()))
-    print("\u001b[32mINSTALLED \u001b[35m"+str(lib).upper()+"\u001b[32m SUCESSFULLY\u001b[0m")
-  except FileNotFoundError as e:
-    print("\u001b[31mZPMER01: COULD NOT FIND \u001b[35m"+str(lib).upper()+"\u001b[0m")
-else:
-  os.system("git clone https://github.com/cmspeedrunner/Zang")
-  os.rename("Zang", "libsrc")
-  try:
-    shutil.copy("libsrc/examples/using/libraries/"+str(lib), str(os.getcwd()))
-    print("\u001b[32mINSTALLED \u001b[35m"+str(lib).upper()+"\u001b[32m SUCESSFULLY\u001b[0m")
-  except FileNotFoundError as e:
-    print("\u001b[31mZPMER01: COULD NOT FIND \u001b[35m"+str(lib).upper()+"\u001b[0m")
+connection = http.HTTPSConnection(HTTP_URL)
+connection.request("GET", LIBRARIES_PATH, headers=HTTP_HEADERS)
+try:
+  response = json.loads(connection.getresponse().read())
+except json.JSONDecodeError:
+  print("\u001b[31mZPMER01: JSON DECODE ERROR WHILE TRYING TO INSTALL \u001b[35m"+str(library).upper()+"\u001b[0m")
+  exit(1)
+
+zang_libraries = {library["name"]: library for library in response}
+if library+".zang" not in zang_libraries.keys():
+  print("\u001b[31mZPMER02: COULD NOT FIND \u001b[35m"+str(library).upper()+"\u001b[0m")
+  exit(1)
+
+print(zang_libraries[library+".zang"]["download_url"])
+
+connection = http.HTTPSConnection(HTTP_DOWNLOAD_URL)
+connection.request("GET", zang_libraries[library+".zang"]["download_url"].replace("https://"+HTTP_DOWNLOAD_URL, ""), headers=HTTP_DOWNLOAD_HEADERS)
+
+with open(current_dir+"/"+library+".zang", "w") as file:
+  file.write(connection.getresponse().read().decode("utf-8"))
+
+print("\u001b[32mINSTALLED \u001b[35m"+str(library).upper()+"\u001b[32m SUCESSFULLY\u001b[0m")
