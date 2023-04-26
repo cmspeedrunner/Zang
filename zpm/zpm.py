@@ -2,6 +2,13 @@ import sys
 import os
 import http.client as http
 import json
+import argparse
+
+arg_parser = argparse.ArgumentParser()
+arg_parser.add_argument("action", default="install", choices=["install", "everything"], help="Do this action")
+arg_parser.add_argument("args", nargs="*", default=None, help="Libraries to install (ignored if action is 'everything')")
+
+arguments = arg_parser.parse_args()
 
 os.system("")
 
@@ -24,20 +31,40 @@ connection.request("GET", LIBRARIES_PATH, headers=HTTP_HEADERS)
 try:
   response = json.loads(connection.getresponse().read())
 except json.JSONDecodeError:
-  print("\u001b[31mZPMER01: JSON DECODE ERROR WHILE TRYING TO INSTALL \u001b[35m"+str(library).upper()+"\u001b[0m")
+  print("\u001b[31mZPMER01: JSON DECODE ERROR WHILE TRYING TO GET LIBRARIES LIKE \u001b[35m"+str(library).upper()+"\u001b[0m")
   exit(1)
 
 zang_libraries = {library["name"]: library for library in response}
-if library+".zang" not in zang_libraries.keys():
-  print("\u001b[31mZPMER02: COULD NOT FIND \u001b[35m"+str(library).upper()+"\u001b[0m")
-  exit(1)
+if arguments.action == "install":
+  if arguments.args == []:
+    print("\u001b[31mZPMER02: WRITE THE LIBRARY NAME\u001b[0m")
+    exit(1)
 
-print(zang_libraries[library+".zang"]["download_url"])
+  connection = http.HTTPSConnection(HTTP_DOWNLOAD_URL)  
+  for library in arguments.args:
+    if library+".zang" not in zang_libraries.keys():
+      print("\u001b[31mZPMER02: COULD NOT FIND \u001b[35m"+str(library).upper()+"\u001b[0m")
+      continue
 
-connection = http.HTTPSConnection(HTTP_DOWNLOAD_URL)
-connection.request("GET", zang_libraries[library+".zang"]["download_url"].replace("https://"+HTTP_DOWNLOAD_URL, ""), headers=HTTP_DOWNLOAD_HEADERS)
+    connection.request("GET", zang_libraries[library+".zang"]["download_url"].replace("https://"+HTTP_DOWNLOAD_URL, ""), headers=HTTP_DOWNLOAD_HEADERS)
 
-with open(current_dir+"/"+library+".zang", "w") as file:
-  file.write(connection.getresponse().read().decode("utf-8"))
+    with open(current_dir+"/"+library+".zang", "w") as file:
+      file.write(connection.getresponse().read().decode("utf-8"))
+    
+    print("\u001b[32mINSTALLED \u001b[35m"+str(library).upper()+"\u001b[32m SUCESSFULLY\u001b[0m")
 
-print("\u001b[32mINSTALLED \u001b[35m"+str(library).upper()+"\u001b[32m SUCESSFULLY\u001b[0m")
+elif arguments.action == "everything":
+  connection = http.HTTPSConnection(HTTP_DOWNLOAD_URL)
+  path = os.path.join(current_dir, "using")
+  if not os.path.exists(path):
+    os.mkdir(path)
+  
+  for library in response:
+    connection.request("GET", library["download_url"].replace("https://"+HTTP_DOWNLOAD_URL, ""), headers=HTTP_DOWNLOAD_HEADERS)
+
+    with open(f"{current_dir}/using/{library['name']}", "w") as file:
+      file.write(connection.getresponse().read().decode("utf-8"))
+    
+    print("\u001b[32mINSTALLED \u001b[35m"+str(library["name"]).upper()+"\u001b[32m SUCESSFULLY\u001b[0m")
+  
+  print("\u001b[32mEVERYTHING INSTALLED SUCESSFULLY\u001b[0m")
