@@ -1,7 +1,3 @@
-#######################################
-# IMPORTS
-#######################################
-
 import webbrowser
 import string
 import os
@@ -1826,6 +1822,12 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_writeln.arg_names = ['value']
 
+  def execute_error(self, exec_ctx):
+    print("\033[31;1;4m"+str(exec_ctx.symbol_table.get('value'))+"\033[0m")
+    exit()
+    quit()
+  execute_error.arg_names = ['value']
+
   def execute_zgui_open(self, exec_ctx):
     import tkinter as tk
     title = exec_ctx.symbol_table.get("title")
@@ -2221,6 +2223,7 @@ String.col_green = String("\u001b[32m")
 String.col_yellow = String("\u001b[33m")
 
 BuiltInFunction.writeln      = BuiltInFunction("writeln")
+BuiltInFunction.error      = BuiltInFunction("error")
 BuiltInFunction.zgui_open      = BuiltInFunction("zgui_open")
 BuiltInFunction.zang_eval      = BuiltInFunction("zang_eval")
 BuiltInFunction.using      = BuiltInFunction("using")
@@ -2590,6 +2593,7 @@ global_symbol_table.set("col_green", String.col_green)
 
 global_symbol_table.set("math_inf", Number.math_inf)
 global_symbol_table.set("writeln", BuiltInFunction.writeln)
+global_symbol_table.set("error", BuiltInFunction.error)
 global_symbol_table.set("zgui_open", BuiltInFunction.zgui_open)
 global_symbol_table.set("zang_eval", BuiltInFunction.zang_eval)
 global_symbol_table.set("using", BuiltInFunction.using)
