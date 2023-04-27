@@ -207,7 +207,11 @@ This would output:
 50
 ```
 Functions can also return values
-
+### Raising Errors
+To raise an error, you can use the `error keyword like this:
+```javascript
+error("This is a raised error!")
+```
 ### Comments
 To do comments you would use a hashtag (#) for example:
 ```python
