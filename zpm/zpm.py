@@ -1,13 +1,13 @@
 import sys
 import os
 import http.client as http
-import json
 import argparse
 import models
 
 arg_parser = argparse.ArgumentParser()
 
 arg_parser.add_argument("-p", "--path", type=models.PathType(type="dir", dash_ok=False), default=None, help="Directory where libraries will be saved")
+arg_parser.add_argument("-s", "--stop-on-download-error", default=False, type=bool, help="Stop if get an error when downloading the library")
 
 arg_parser.add_argument("action", default="install", choices=["install", "everything"], help="Do this action")
 arg_parser.add_argument("args", nargs="*", default=None, help="Libraries to install (ignored if action is 'everything')")

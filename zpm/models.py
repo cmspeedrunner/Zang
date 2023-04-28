@@ -45,18 +45,20 @@ class Libraries:
         self.git_urls = map(lambda lib: lib.git_url, self.libraries)
         self.download_urls = map(lambda lib: lib.download_url, self.libraries)
 
-    def download(self, library: str, path: str = os.getcwd()):
+    def download(self, library: str, path: str = os.getcwd(), stop_on_error: bool = False):
         if library+".zang" not in self.libs_dict.keys():
-            raise LibraryNotFound(library)
-        
+            traceback.print_exception(LibraryNotFound(library))
+
+            if stop_on_error:
+                exit(1)
+
+            return
+
         self.libs_dict[library+".zang"].download(path)
 
-    def download_all(self, path: str = os.getcwd()+"/using/"):
+    def download_all(self, path: str = os.getcwd()+"/using/", stop_on_error: bool = False):
         for library in self.libraries:
-            try:
-                self.download(library.name.replace(".zang", ""), path)
-            except LibraryNotFound as error:
-                traceback.print_exception(error)
+            self.download(library.name.replace(".zang", ""), path, stop_on_error)
 
 class Installer:
 
@@ -83,18 +85,16 @@ class Installer:
                 if not os.path.exists(path):
                     os.mkdir(path)
         
-            self.libraries.download_all(path)
+            self.libraries.download_all(path, self.arguments["stop-on-error"])
             print("\u001b[32mEVERYTHING INSTALLED SUCESSFULLY\u001b[0m")
         
         elif self.arguments.action == "install":
             path = self.arguments.path
             if self.arguments.path is None:
                 path = current_dir+"/"
-            
+
             for library in self.arguments.args:
-                self.libraries.download(library, path)
-            
-            #map(lambda lib: self.libraries.download(lib, path), self.arguments.args)
+                self.libraries.download(library, path, self.arguments.stop_on_download_error)
 
     @property
     def libraries(self):
