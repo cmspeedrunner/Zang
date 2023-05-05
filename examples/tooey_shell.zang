@@ -1,0 +1,8 @@
+using("using/libraries/tooey.zang")
+using("using/libraries/zecl.zang")
+writeln(purple("Welcome to the Tooey Shell!"))
+writeln(blue("Start typing in some tooey commands!"))
+writeln(green("V/0.1"))
+while True then
+    zang_eval(read(green("TooeyShell>")))
+end
