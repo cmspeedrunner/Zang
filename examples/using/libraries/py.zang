@@ -1,0 +1,5 @@
+fn code(code)
+   writef("temp.py", code)
+   passc("py temp.py")
+   passc("del temp.py")
+end
